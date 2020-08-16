@@ -7,3 +7,4 @@ bin/
 aspnet-core/src/MRPanel.Web.Host/App_Data/Logs/
 aspnet-core/src/MRPanel.Web.Mvc/App_Data/Logs/
 aspnet-core/src/MRPanel.Migrator/Logs/Logs.txt
+/aspnet-core/build/outputs

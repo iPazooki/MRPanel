@@ -1,9 +1,9 @@
 version: '2'
 
 services:
-
-    abp_host:
-        image: abp/host
+            
+    mrpanel_host:
+        image: mrpanel/host
         environment:
             - ASPNETCORE_ENVIRONMENT=Staging
         ports:
@@ -11,7 +11,7 @@ services:
         volumes:
             - "./Host-Logs:/app/App_Data/Logs"
 
-    abp_ng:
-        image: abp/ng
+    mrpanel_ng:
+        image: mrpanel/ng
         ports:
             - "9902:80"
