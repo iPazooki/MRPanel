@@ -39,14 +39,14 @@ $ngConfigPath = Join-Path $outputFolder "ng/assets/appconfig.json"
 # Host
 Set-Location (Join-Path $outputFolder "Host")
 
-docker rmi mrpanel/host -f
-docker build -t mrpanel/host .
+docker rmi mrpanel_host -f
+docker build -t mrpanel_host .
 
 # Angular UI
 Set-Location (Join-Path $outputFolder "ng")
 
-docker rmi mrpanel/ng -f
-docker build -t mrpanel/ng .
+docker rmi mrpanel_ng -f
+docker build -t mrpanel_ng .
 
 ## DOCKER COMPOSE FILES #######################################################
 

@@ -3,7 +3,7 @@ version: '2'
 services:
             
     mrpanel_host:
-        image: mrpanel/host
+        image: mrpanel_host
         environment:
             - ASPNETCORE_ENVIRONMENT=Staging
         ports:
@@ -12,6 +12,6 @@ services:
             - "./Host-Logs:/app/App_Data/Logs"
 
     mrpanel_ng:
-        image: mrpanel/ng
+        image: mrpanel_ng
         ports:
             - "9902:80"
