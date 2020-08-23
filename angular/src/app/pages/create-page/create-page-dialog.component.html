@@ -1,0 +1,66 @@
+<form
+  class="form-horizontal"
+  autocomplete="off"
+  #createPageModal="ngForm"
+  (ngSubmit)="save()"
+>
+  <abp-modal-header
+    [title]="'CreateNewPage' | localize"
+    (onCloseClick)="bsModalRef.hide()"
+  ></abp-modal-header>
+  <div class="modal-body">
+    <tabset>
+      <tab [heading]="'Details' | localize" class="pt-3 px-2">
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="title">
+            {{ "Title" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="title"
+              id="title"
+              required
+              maxlength="32"
+              [(ngModel)]="page.title"
+              #titleModel="ngModel"
+              #titleEl
+            />
+            <abp-validation-summary
+              [control]="titleModel"
+              [controlEl]="titleEl"
+            ></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="summery">
+            {{ "Summery" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="summery"
+              id="summery"
+              required
+              maxlength="32"
+              [(ngModel)]="page.summery"
+              #summeryModel="ngModel"
+              #summeryEl
+            />
+            <abp-validation-summary
+              [control]="summeryModel"
+              [controlEl]="summeryEl"
+            ></abp-validation-summary>
+          </div>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+  <abp-modal-footer
+    [cancelDisabled]="saving"
+    [saveDisabled]="!createPageModal.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"
+  ></abp-modal-footer>
+</form>

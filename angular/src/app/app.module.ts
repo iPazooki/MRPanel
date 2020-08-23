@@ -38,6 +38,8 @@ import { SidebarComponent } from './layout/sidebar.component';
 import { SidebarLogoComponent } from './layout/sidebar-logo.component';
 import { SidebarUserPanelComponent } from './layout/sidebar-user-panel.component';
 import { SidebarMenuComponent } from './layout/sidebar-menu.component';
+import { PagesComponent } from './pages/pages.component';
+import { CreatePageDialogComponent } from './pages/create-page/create-page-dialog.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { SidebarMenuComponent } from './layout/sidebar-menu.component';
     SidebarComponent,
     SidebarLogoComponent,
     SidebarUserPanelComponent,
-    SidebarMenuComponent
+    SidebarMenuComponent,
+    PagesComponent,
+    CreatePageDialogComponent
   ],
   imports: [
     CommonModule,

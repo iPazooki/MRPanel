@@ -3,9 +3,9 @@ using MRPanel.Authorization.Users;
 
 namespace MRPanel.Users.Dto
 {
-    public class UserMapProfile : Profile
+    public class PageMapProfile : Profile
     {
-        public UserMapProfile()
+        public PageMapProfile()
         {
             CreateMap<UserDto, User>();
             CreateMap<UserDto, User>()
