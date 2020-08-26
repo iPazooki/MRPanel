@@ -19,7 +19,7 @@ namespace MRPanel.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeleterUserId = table.Column<long>(nullable: true),
                     DeletionTime = table.Column<DateTime>(nullable: true),
-                    Title = table.Column<string>(maxLength: 250, nullable: false),
+                    Title = table.Column<string>(maxLength: 256, nullable: false),
                     Summery = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: false),
                     PageType = table.Column<int>(nullable: false)

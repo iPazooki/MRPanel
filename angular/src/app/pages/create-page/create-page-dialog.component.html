@@ -56,6 +56,9 @@
           </div>
         </div>
       </tab>
+      <tab [heading]="'Details' | localize" class="pt-3 px-2">
+        <ckeditor [(ngModel)]="page.content"  [editor]="Editor" data="<p>Hello, world!</p>" name="editorContent" ></ckeditor>
+      </tab>
     </tabset>
   </div>
   <abp-modal-footer

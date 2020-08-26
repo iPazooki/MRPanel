@@ -12,16 +12,20 @@ import { AppComponentBase } from "@shared/app-component-base";
 import {
   PageDto,
   PageServiceProxy,
+  PageType,
 } from "@shared/service-proxies/service-proxies";
+
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   templateUrl: "./create-page-dialog.component.html",
 })
 export class CreatePageDialogComponent extends AppComponentBase
   implements OnInit {
+  public Editor = ClassicEditor;
   saving = false;
   page = new PageDto();
-
+  
   @Output() onSave = new EventEmitter<any>();
 
   constructor(
@@ -37,6 +41,7 @@ export class CreatePageDialogComponent extends AppComponentBase
   save(): void {
     this.saving = true;
 
+    this.page.pageType = PageType._0;
     this._pageService
       .create(this.page)
       .pipe(

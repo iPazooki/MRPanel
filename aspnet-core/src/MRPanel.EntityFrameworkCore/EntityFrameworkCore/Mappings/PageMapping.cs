@@ -10,7 +10,7 @@ namespace MRPanel.EntityFrameworkCore.Mappings
         {
             builder.Property(x => x.Title)
                 .IsRequired()
-                .HasMaxLength(256);
+                .HasMaxLength(MRPanelConsts.Length256);
 
             builder.Property(x => x.Content)
                 .IsRequired();

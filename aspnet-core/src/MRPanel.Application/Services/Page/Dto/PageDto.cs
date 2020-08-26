@@ -11,7 +11,7 @@ namespace MRPanel.Services
     public class PageDto : FullAuditedEntityDto<Guid>
     {
         [Required]
-        [StringLength(256)]
+        [StringLength(MRPanelConsts.Length256)]
         public string Title { get; set; }
 
         public string Summery { get; set; }

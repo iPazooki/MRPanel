@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<localizationDictionary culture="tr">
+<localizationDictionary culture="fa">
   <texts>
     <text name="Pages" value="صفحات" />
-    <text name="Title" value="عتوان" />
+    <text name="Title" value="عنوان" />
     <text name="Type" value="نوع" />
     <text name="HomePage" value="خانه" />
     <text name="About" value="درباره" />
@@ -20,13 +20,13 @@
     <text name="PleaseEnterLoginInformation" value="Please enter login information" />
     <text name="TenancyName" value="Tenancy name" />
     <text name="UserNameOrEmail" value="نام کاربری یا ایمیل" />
-    <text name="Password" value="Password" />
-    <text name="ResetPassword" value="Reset Password" />
-    <text name="UpdatePassword" value="Update Password" />
-    <text name="RememberMe" value="Remember me" />
-    <text name="LogIn" value="Log in" />
-    <text name="LoginFailed" value="Login failed!" />
-    <text name="NameSurname" value="Name surname" />
+    <text name="Password" value="رمز عبور" />
+    <text name="ResetPassword" value="تغییر رمز عبور" />
+    <text name="UpdatePassword" value="بروزرسانی رمز" />
+    <text name="RememberMe" value="مرا به خاطر بسپار" />
+    <text name="LogIn" value="ورود" />
+    <text name="LoginFailed" value="ورود ناموفق" />
+    <text name="NameSurname" value="نام فامیلی" />
     <text name="UserName" value="نام کاربری" />
     <text name="Name" value="نام" />
     <text name="Surname" value="نام خانوادگی" />
@@ -41,40 +41,40 @@
     <text name="TenantName_Regex_Description" value="Tenant name must be at least 2 chars, starts with a letter and continue with letter, number, dash or underscore." />
     <text name="DefaultPasswordIs" value="Default password is {0}" />
     <text name="CanBeEmptyToLoginAsHost" value="Can be empty to login as host." />
-    <text name="Register" value="Register" />
+    <text name="Register" value="ثبت نام" />
     <text name="OrLoginWith" value="Or login with" />
     <text name="WaitingForActivationMessage" value="Your account is waiting to be activated by system admin." />
     <text name="TenantSelection" value="Tenant Selection" />
     <text name="TenantSelection_Detail" value="Please select one of the following tenants." />
-    <text name="Logout" value="Logout" />
+    <text name="Logout" value="خروج" />
     <text name="RegisterFormUserNameInvalidMessage">Please don't enter an email address for username.</text>
     <text name="DatabaseConnectionString" value="Database connection string" />
-    <text name="Users" value="Users" />
-    <text name="IsActive" value="Is active" />
-    <text name="FullName" value="Full name" />
-    <text name="CreateNewUser" value="Create new user" />
-    <text name="Yes" value="Yes" />
-    <text name="No" value="No" />
-    <text name="Optional" value="Optional" />
+    <text name="Users" value="کاربران" />
+    <text name="IsActive" value="فعال است؟" />
+    <text name="FullName" value="نام کامل" />
+    <text name="CreateNewUser" value="ساخت کاربر جدید" />
+    <text name="Yes" value="بله" />
+    <text name="No" value="خیر" />
+    <text name="Optional" value="تنظیمات" />
     <text name="LeaveEmptyToSwitchToHost">Leave empty to switch to the host</text>
     <text name="CurrentTenant">Current tenant</text>
     <text name="NotSelected">Not selected</text>
-    <text name="Change">Change</text>
+    <text name="Change">تغییر</text>
     <text name="ChangeTenant">Change tenant</text>
     <text name="MultiLevelMenu">Multi Level Menu</text>
     <text name="Back">بازگشت</text>
-    <text name="SuccessfullyRegistered">Successfully registered</text>
-    <text name="WaitingForEmailActivation">Your email address should be activated</text>
-    <text name="Roles">Roles</text>
-    <text name="DisplayName">Display Name</text>
+    <text name="SuccessfullyRegistered">ثبت نام موفقیت آمیز بود</text>
+    <text name="WaitingForEmailActivation">ایمیل شما باید فعال شود</text>
+    <text name="Roles">نقش ها</text>
+    <text name="DisplayName">نام نمایشی</text>
     <text name="Edit">ویرایش</text>
     <text name="Delete">حذف</text>
-    <text name="CreateNewRole">Create new role</text>
-    <text name="RoleName">Role Name</text>
+    <text name="CreateNewRole">نقش جدید</text>
+    <text name="RoleName">نام نقش</text>
     <text name="Actions">عملیات</text>
     <text name="CouldNotCompleteLoginOperation">Could not complete login operation. Please try again later.</text>
     <text name="CouldNotValidateExternalUser">Could not validate external user</text>
-    <text name="EditRole">Edit role</text>
+    <text name="EditRole">ویرایش نقش</text>
     <text name="EditTenant">Edit tenant</text>
     <text name="EditUser">Edit user</text>
     <text name="TenantIdIsNotActive{0}">TenantId {0} is not active</text>
@@ -88,7 +88,7 @@
     <text name="Permissions">Permissions</text>
     <text name="RoleDescription">Role description</text>
     <text name="Refresh">Refresh</text>
-    <text name="Create">Create</text>
+    <text name="Create">ایجاد</text>
     <text name="UserDetails">User details</text>
     <text name="UserRoles">User roles</text>
     <text name="ConfirmPassword">Confirm password</text>

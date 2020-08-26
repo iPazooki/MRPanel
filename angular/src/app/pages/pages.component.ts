@@ -85,9 +85,10 @@ export class PagesComponent extends PagedListingComponentBase<PageDto> {
 
  
   private showCreateOrEditPageDialog(id?: string): void {
+    
     let createOrEditPageDialog: BsModalRef;
 
-    if (id != null) {
+    if (!id) {
       createOrEditPageDialog = this._modalService.show(
         CreatePageDialogComponent,
         {
