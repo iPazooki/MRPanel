@@ -5,35 +5,31 @@ import {
   EventEmitter,
   Output,
 } from "@angular/core";
+import { AppComponentBase } from "@shared/app-component-base";
+
 import { finalize } from "rxjs/operators";
 import { BsModalRef } from "ngx-bootstrap/modal";
 import * as _ from "lodash";
-import { AppComponentBase } from "@shared/app-component-base";
 import {
-  PageDto,
   PageServiceProxy,
+  PageDto,
   PageType,
 } from "@shared/service-proxies/service-proxies";
 
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { AppPageType } from "@shared/AppEnums";
-import { propertyOf } from "lodash";
 
 @Component({
-  templateUrl: "./create-page-dialog.component.html",
+  templateUrl: "./edit-page-dialog.component.html",
   styleUrls: ["../../pages/page.css"],
 })
-export class CreatePageDialogComponent
+export class EditPageDialogComponent
   extends AppComponentBase
   implements OnInit {
   public Editor = ClassicEditor;
   saving = false;
   page = new PageDto();
-  pageTypeName: string;
-
-  pageTypes: any = Object.keys(AppPageType).map((item, index) => {
-    return { id: index, name: item };
-  });
+  id: string;
 
   @Output() onSave = new EventEmitter<any>();
 
@@ -45,16 +41,19 @@ export class CreatePageDialogComponent
     super(injector);
   }
 
-  types: string[];
+  pageTypes: string[] = new EnumConvertor<AppPageType>(AppPageType).getValues();
+
   ngOnInit(): void {
-    this.pageTypeName = "PleaseSelect";
+    this._pageService.get(this.id).subscribe((result) => {
+      this.page = result;
+    });
   }
 
   save(): void {
     this.saving = true;
 
     this._pageService
-      .create(this.page)
+      .update(this.page)
       .pipe(
         finalize(() => {
           this.saving = false;
@@ -65,29 +64,6 @@ export class CreatePageDialogComponent
         this.bsModalRef.hide();
         this.onSave.emit();
       });
-  }
-
-  selectPageType(type: AppPageType) {
-    switch (type) {
-      case AppPageType.Page: {
-        this.page.pageType = AppPageType.Page;
-        this.pageTypeName = "Page";
-        break;
-      }
-      case AppPageType.News: {
-        this.page.pageType = AppPageType.News;
-        this.pageTypeName = "News";
-        break;
-      }
-      case AppPageType.Article: {
-        this.page.pageType = AppPageType.Article;
-        this.pageTypeName = "Article";
-        break;
-      }
-
-      default:
-        break;
-    }
   }
 }
 

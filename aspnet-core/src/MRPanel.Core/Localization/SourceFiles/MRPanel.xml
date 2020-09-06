@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    <text name="PleaseSelect" value="Please Select" />
+    <text name="Page" value="Page" />
+    <text name="News" value="News" />
+    <text name="Article" value="Article" />
+    <text name="PageType" value="Page Type" />
+    <text name="Summery" value="Summery" />
+    <text name="Properties" value="Properties" />
+    <text name="Content" value="Content" />
     <text name="Pages" value="Pages" />
     <text name="HomePage" value="Home page" />
     <text name="Title" value="Title" />

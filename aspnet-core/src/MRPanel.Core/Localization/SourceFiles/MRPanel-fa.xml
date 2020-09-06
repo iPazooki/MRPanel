@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="fa">
   <texts>
+    <text name="PleaseSelect" value="انتخاب کنید" />
+    <text name="Page" value="صفحه" />
+    <text name="News" value="اخبار" />
+    <text name="Article" value="مقاله" />
+    <text name="PageType" value="نوع" />
+    <text name="Summery" value="خلاصه" />
+    <text name="Properties" value="مشخصات" />
+    <text name="Content" value="متن" />
     <text name="Pages" value="صفحات" />
     <text name="Title" value="عنوان" />
     <text name="Type" value="نوع" />

@@ -41,6 +41,7 @@ import { SidebarUserPanelComponent } from './layout/sidebar-user-panel.component
 import { SidebarMenuComponent } from './layout/sidebar-menu.component';
 import { PagesComponent } from './pages/pages.component';
 import { CreatePageDialogComponent } from './pages/create-page/create-page-dialog.component';
+import { EditPageDialogComponent } from './pages/edit-page/edit-page-dialog.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { CreatePageDialogComponent } from './pages/create-page/create-page-dialo
     SidebarUserPanelComponent,
     SidebarMenuComponent,
     PagesComponent,
-    CreatePageDialogComponent
+    CreatePageDialogComponent,
+    EditPageDialogComponent
   ],
   imports: [
     CommonModule,
