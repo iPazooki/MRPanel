@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    <text name="EditPage" value="Edit Page" />
     <text name="PleaseSelect" value="Please Select" />
     <text name="Page" value="Page" />
     <text name="News" value="News" />

@@ -6,7 +6,7 @@
                     <h1>{{ "Pages" | localize }}</h1>
                 </div>
                 <div class="col-6 text-right">
-                    <a href="javascript:;" class="btn bg-blue" (click)="createPage()">
+                    <a href="javascript:;" class="btn bg-blue" (click)="CreateOrEditPage()">
                         <i class="fa fa-plus-square"></i> {{ "Create" | localize }}
                     </a>
                 </div>
@@ -101,7 +101,7 @@
                                 <td>{{ page.title }}</td>
                                 <td>{{ getPageTypeName(page.pageType) | localize }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-sm bg-secondary" (click)="editPage(page)">
+                    <button type="button" class="btn btn-sm bg-secondary" (click)="CreateOrEditPage(page)">
                       <i class="fas fa-pencil-alt"></i>
                       {{ "Edit" | localize }}
                     </button>

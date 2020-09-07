@@ -40,8 +40,7 @@ import { SidebarLogoComponent } from './layout/sidebar-logo.component';
 import { SidebarUserPanelComponent } from './layout/sidebar-user-panel.component';
 import { SidebarMenuComponent } from './layout/sidebar-menu.component';
 import { PagesComponent } from './pages/pages.component';
-import { CreatePageDialogComponent } from './pages/create-page/create-page-dialog.component';
-import { EditPageDialogComponent } from './pages/edit-page/edit-page-dialog.component';
+import { EditPageDialogComponent } from './pages/enter-page/enter-page-dialog.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +72,6 @@ import { EditPageDialogComponent } from './pages/edit-page/edit-page-dialog.comp
     SidebarUserPanelComponent,
     SidebarMenuComponent,
     PagesComponent,
-    CreatePageDialogComponent,
     EditPageDialogComponent
   ],
   imports: [

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="fa">
   <texts>
+    <text name="EditPage" value="ویرایش صفحه" />
     <text name="PleaseSelect" value="انتخاب کنید" />
     <text name="Page" value="صفحه" />
     <text name="News" value="اخبار" />
