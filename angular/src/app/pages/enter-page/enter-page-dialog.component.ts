@@ -17,7 +17,7 @@ import {
 } from "@shared/service-proxies/service-proxies";
 
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { AppPageType } from "@shared/AppEnums";
+import { AppPageType, AppContentPlace  } from "@shared/AppEnums";
 
 @Component({
   templateUrl: "./enter-page-dialog.component.html",
@@ -32,6 +32,7 @@ export class EditPageDialogComponent
   id: string;
   
   pageTypeName: string;
+  contentPlaceName: string;
 
   @Output() onSave = new EventEmitter<any>();
 
@@ -48,14 +49,20 @@ export class EditPageDialogComponent
     return { id: index, name: item };
   });
 
+  contentPlaces: any = Object.keys(AppContentPlace).map((item, index) => {
+    return { id: index, name: item };
+  });
+
   ngOnInit(): void {
 
     this.pageTypeName = "PleaseSelect";
+    this.contentPlaceName = "pleaseSelect"
 
     if (this.id != undefined) {
       this._pageService.get(this.id).subscribe((result) => {
         this.page = result;
         this.selectPageType(this.page.pageType);  
+        this.selectContentPlace(this.page.contentPlace);  
       });
     } 
   }
@@ -108,6 +115,29 @@ export class EditPageDialogComponent
       case AppPageType.Article: {
         this.page.pageType = AppPageType.Article;
         this.pageTypeName = "Article";
+        break;
+      }
+
+      default:
+        break;
+    }
+  }
+
+  selectContentPlace(type: AppContentPlace) {
+    switch (type) {
+      case AppContentPlace.Up: {
+        this.page.contentPlace = AppContentPlace.Up;
+        this.contentPlaceName = "Up";
+        break;
+      }
+      case AppContentPlace.Middle: {
+        this.page.contentPlace = AppContentPlace.Middle;
+        this.contentPlaceName = "Middle";
+        break;
+      }
+      case AppContentPlace.Bottom: {
+        this.page.contentPlace = AppContentPlace.Bottom;
+        this.contentPlaceName = "Bottom";
         break;
       }
 

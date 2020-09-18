@@ -1522,6 +1522,9 @@ namespace MRPanel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ContentPlace")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
@@ -1535,6 +1538,9 @@ namespace MRPanel.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsMainPage")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastModificationTime")

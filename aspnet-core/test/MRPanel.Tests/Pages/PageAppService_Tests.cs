@@ -3,22 +3,21 @@ using Microsoft.EntityFrameworkCore;
 using Shouldly;
 using Xunit;
 using Abp.Application.Services.Dto;
-using MRPanel.Users;
-using MRPanel.Users.Dto;
 using MRPanel.Services;
-using MRPanel.Timing;
-using System;
 using Abp.Timing;
+using System.Linq;
 
 namespace MRPanel.Tests.Users
 {
     public class PageAppService_Tests : MRPanelTestBase
     {
         private readonly IPageAppService _pageAppService;
+        private readonly ISitePageAppService _sitePageAppService;
 
         public PageAppService_Tests()
         {
             _pageAppService = Resolve<IPageAppService>();
+            _sitePageAppService = Resolve<ISitePageAppService>();
         }
 
         [Fact]
@@ -37,6 +36,16 @@ namespace MRPanel.Tests.Users
 
             // Assert
             output.Items.Count.ShouldBeGreaterThan(0);
+        }
+
+        [Fact]
+        public async Task GetSitePages_Test()
+        {
+            // Act
+            var output = await _sitePageAppService.GetAll();
+
+            // Assert
+            output.ShouldBeEmpty();
         }
 
         [Fact]

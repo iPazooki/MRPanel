@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using MRPanel.Domain;
+using MRPanel.Domain.Enum;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -21,5 +22,10 @@ namespace MRPanel.Services
 
         [Required]
         public PageType PageType { get; set; }
+
+
+        public ContentPlace ContentPlace { get; set; }
+
+        public bool IsMainPage { get; set; }
     }
 }

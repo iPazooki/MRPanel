@@ -15,3 +15,8 @@ services:
         image: mrpanel_ng
         ports:
             - "9902:80"
+            
+    mrpanel_ng_site:
+        image: mrpanel_ng_site
+        ports:
+            - "9903:80"            

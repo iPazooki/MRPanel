@@ -1,6 +1,6 @@
 {
-  "remoteServiceBaseUrl": "http://ec2-18-130-129-230.eu-west-2.compute.amazonaws.com:9901",
-  "appBaseUrl": "http://ec2-18-130-129-230.eu-west-2.compute.amazonaws.com:9902",
+  "remoteServiceBaseUrl": "http://localhost:9901",
+  "appBaseUrl": "http://localhost:9902",
   "localeMappings": [
     {
       "from": "fa-IR",

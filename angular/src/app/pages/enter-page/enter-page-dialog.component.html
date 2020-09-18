@@ -56,21 +56,60 @@
           </div>
         </div>
 
-        <label class="col-md-3 col-form-label" for="pageType">
-          {{ "PageType" | localize }}
-        </label>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="pageType">
+            {{ "PageType" | localize }}
+          </label>
+  
+          <div class="btn-group" dropdown>
+            <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+              aria-controls="dropdown-basic">
+              {{ pageTypeName  | localize }} <span class="caret"></span>
+            </button>
+  
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+              <li role="menuitem" *ngFor="let type of pageTypes; let i = index"><a class="dropdown-item"
+                
+                  (click)="selectPageType(type.id)">{{ type.name | localize}}</a></li>
+            </ul>
+          </div>
+        </div>
 
-        <div class="btn-group" dropdown>
-          <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-            aria-controls="dropdown-basic">
-            {{ pageTypeName  | localize }} <span class="caret"></span>
-          </button>
+        <div class="form-group row mb-0">
+          <label class="col-md-3 col-form-label">
+            {{ "Is Main Page" | localize }}
+          </label>
+          <div class="col-md-9">
+            <div class="custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                name="isMainPage"
+                id="isMainPage"
+                [(ngModel)]="page.isMainPage"
+              />
+              <label class="custom-control-label mt-2" for="isMainPage"></label>
+            </div>
+          </div>
+        </div>
 
-          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-            <li role="menuitem" *ngFor="let type of pageTypes; let i = index"><a class="dropdown-item"
-              
-                (click)="selectPageType(type.id)">{{ type.name | localize}}</a></li>
-          </ul>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="contentPlace">
+            {{ "ContentPlace" | localize }}
+          </label>
+  
+          <div class="btn-group" dropdown>
+            <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+              aria-controls="dropdown-basic">
+              {{ contentPlaceName  | localize }} <span class="caret"></span>
+            </button>
+  
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+              <li role="menuitem" *ngFor="let place of contentPlaces; let i = index"><a class="dropdown-item"
+                
+                  (click)="selectContentPlace(place.id)">{{ place.name | localize}}</a></li>
+            </ul>
+          </div>
         </div>
 
       </tab>

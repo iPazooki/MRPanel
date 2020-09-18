@@ -18,6 +18,10 @@ namespace MRPanel.EntityFrameworkCore.Mappings
             builder.Property(x => x.PageType)
                .IsRequired()
                .HasConversion<int>();
+
+            builder.Property(x => x.ContentPlace)
+                .HasConversion<int>();
+                
         }
     }
 }
