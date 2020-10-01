@@ -5,7 +5,6 @@ using Xunit;
 using Abp.Application.Services.Dto;
 using MRPanel.Services;
 using Abp.Timing;
-using System.Linq;
 
 namespace MRPanel.Tests.Users
 {

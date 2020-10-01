@@ -13,6 +13,10 @@
     <Compile Remove="Migrations\20190111071724_Upgraded_To_Abp_v4_1_0.cs" />
     <Compile Remove="Migrations\20200823084717_Add_Page_Entity.cs" />
     <Compile Remove="Migrations\20200823084717_Add_Page_Entity.Designer.cs" />
+    <Compile Remove="Migrations\20200924054657_Add_Widget.cs" />
+    <Compile Remove="Migrations\20200924054657_Add_Widget.Designer.cs" />
+    <Compile Remove="Migrations\20200924054840_Add_Widget.cs" />
+    <Compile Remove="Migrations\20200924054840_Add_Widget.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />

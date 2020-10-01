@@ -21,7 +21,9 @@ namespace MRPanel.EntityFrameworkCore.Mappings
 
             builder.Property(x => x.ContentPlace)
                 .HasConversion<int>();
-                
+
+            builder.HasMany(x => x.Widgets)
+                .WithOne(s => s.Page);
         }
     }
 }

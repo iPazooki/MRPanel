@@ -1,6 +1,7 @@
 ﻿using Abp.Domain.Entities.Auditing;
 using MRPanel.Domain.Enum;
 using System;
+using System.Collections.Generic;
 
 namespace MRPanel.Domain
 {
@@ -17,5 +18,7 @@ namespace MRPanel.Domain
         public bool IsMainPage { get; set; }
 
         public ContentPlace ContentPlace { get; set; }
+
+        public ICollection<Widget> Widgets { get; set; }
     }
 }

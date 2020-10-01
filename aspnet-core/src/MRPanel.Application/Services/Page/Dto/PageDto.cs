@@ -3,6 +3,7 @@ using Abp.AutoMapper;
 using MRPanel.Domain;
 using MRPanel.Domain.Enum;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MRPanel.Services
@@ -23,9 +24,12 @@ namespace MRPanel.Services
         [Required]
         public PageType PageType { get; set; }
 
-
         public ContentPlace ContentPlace { get; set; }
 
         public bool IsMainPage { get; set; }
+
+        public Widget Widget { get; set; }
+
+        public IList<Widget> Widgets { get; set; }
     }
 }

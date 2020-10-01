@@ -13,6 +13,8 @@ namespace MRPanel.EntityFrameworkCore
         /* Define a DbSet for each entity of the application */
         public DbSet<Page> Pages { get; set; }
 
+        public DbSet<Widget> Widgets { get; set; }
+
         public MRPanelDbContext(DbContextOptions<MRPanelDbContext> options)
             : base(options)
         {
