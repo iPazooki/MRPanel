@@ -49,7 +49,7 @@ namespace MRPanel.Tests.Users
                 PageId = page.Id,
                 ParentId = null,
                 Position = Position.Center,
-                Size = 100
+                //Size = 100
             };
 
             var result = await _widgetAppService.Save(widgetDto);
@@ -73,7 +73,7 @@ namespace MRPanel.Tests.Users
             {
                 Id = widgetDto.Id,
                 PageId = widgetDto.PageId,
-                Size = 50
+                //Size = 50
             };
 
             var resultId = await _widgetAppService.Save(widgetSaveDto);
@@ -82,7 +82,7 @@ namespace MRPanel.Tests.Users
 
             // Assert
 
-            widgetUpdated.Size.ShouldBe(50);
+            widgetUpdated.SizeType.ShouldBe(SizeType.Fifty);
         }
     }
 }
