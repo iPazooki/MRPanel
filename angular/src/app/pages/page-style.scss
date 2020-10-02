@@ -1,10 +1,23 @@
 :host ::ng-deep .ck-editor__editable_inline {
-    min-height: 300px;
-    overflow-y: scroll;
+  min-height: 300px;
+  overflow-y: scroll;
 }
 
 .document-editor__editable-container {
+  /* Make it possible to scroll the "page" of the edited content. */
+  overflow-y: scroll;
+}
 
-    /* Make it possible to scroll the "page" of the edited content. */
-    overflow-y: scroll;
+.widget-holder {
+  position: relative;
+  .action-main {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+.expand-collapse {
+  padding: 8px;
+  font-size: 0.8rem;
+  margin-left: 5px;
 }

@@ -1,13 +1,5 @@
-<form
-  class="form-horizontal"
-  autocomplete="off"
-  #editPageModal="ngForm"
-  (ngSubmit)="save()"
->
-  <abp-modal-header
-    [title]="'EditPage' | localize"
-    (onCloseClick)="bsModalRef.hide()"
-  ></abp-modal-header>
+<form class="form-horizontal" autocomplete="off" #editPageModal="ngForm" (ngSubmit)="save()">
+  <abp-modal-header [title]="'EditPage' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
   <div class="modal-body">
     <tabset>
       <tab [heading]="'Properties' | localize" class="pt-3 px-2">
@@ -16,21 +8,9 @@
             {{ "Title" | localize }}
           </label>
           <div class="col-md-9">
-            <input
-              type="text"
-              class="form-control"
-              name="title"
-              id="title"
-              required
-              maxlength="32"
-              [(ngModel)]="page.title"
-              #titleModel="ngModel"
-              #titleEl
-            />
-            <abp-validation-summary
-              [control]="titleModel"
-              [controlEl]="titleEl"
-            ></abp-validation-summary>
+            <input type="text" class="form-control" name="title" id="title" required maxlength="32"
+              [(ngModel)]="page.title" #titleModel="ngModel" #titleEl />
+            <abp-validation-summary [control]="titleModel" [controlEl]="titleEl"></abp-validation-summary>
           </div>
         </div>
         <div class="form-group row required">
@@ -38,21 +18,9 @@
             {{ "Summery" | localize }}
           </label>
           <div class="col-md-9">
-            <input
-              type="text"
-              class="form-control"
-              name="summery"
-              id="summery"
-              required
-              maxlength="32"
-              [(ngModel)]="page.summery"
-              #summeryModel="ngModel"
-              #summeryEl
-            />
-            <abp-validation-summary
-              [control]="summeryModel"
-              [controlEl]="summeryEl"
-            ></abp-validation-summary>
+            <input type="text" class="form-control" name="summery" id="summery" required maxlength="32"
+              [(ngModel)]="page.summery" #summeryModel="ngModel" #summeryEl />
+            <abp-validation-summary [control]="summeryModel" [controlEl]="summeryEl"></abp-validation-summary>
           </div>
         </div>
 
@@ -60,16 +28,15 @@
           <label class="col-md-3 col-form-label" for="pageType">
             {{ "PageType" | localize }}
           </label>
-  
+
           <div class="btn-group" dropdown>
             <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
               aria-controls="dropdown-basic">
               {{ pageTypeName  | localize }} <span class="caret"></span>
             </button>
-  
+
             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
               <li role="menuitem" *ngFor="let type of pageTypes; let i = index"><a class="dropdown-item"
-                
                   (click)="selectPageType(type.id)">{{ type.name | localize}}</a></li>
             </ul>
           </div>
@@ -81,13 +48,8 @@
           </label>
           <div class="col-md-9">
             <div class="custom-control custom-checkbox">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                name="isMainPage"
-                id="isMainPage"
-                [(ngModel)]="page.isMainPage"
-              />
+              <input type="checkbox" class="custom-control-input" name="isMainPage" id="isMainPage"
+                [(ngModel)]="page.isMainPage" />
               <label class="custom-control-label mt-2" for="isMainPage"></label>
             </div>
           </div>
@@ -97,16 +59,15 @@
           <label class="col-md-3 col-form-label" for="contentPlace">
             {{ "ContentPlace" | localize }}
           </label>
-  
+
           <div class="btn-group" dropdown>
             <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
               aria-controls="dropdown-basic">
               {{ contentPlaceName  | localize }} <span class="caret"></span>
             </button>
-  
+
             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
               <li role="menuitem" *ngFor="let place of contentPlaces; let i = index"><a class="dropdown-item"
-                
                   (click)="selectContentPlace(place.id)">{{ place.name | localize}}</a></li>
             </ul>
           </div>
@@ -114,14 +75,115 @@
 
       </tab>
       <tab [heading]="'Content' | localize" class="pt-3 px-2">
-        <ckeditor [(ngModel)]="page.content"  [editor]="Editor" data="<p>Hello, world!</p>" name="editorContent"></ckeditor>
+        <ckeditor [(ngModel)]="page.content" [editor]="editor" name="editorContent">
+        </ckeditor>
+      </tab>
+      <tab [heading]="'Widget' | localize" class="pt-3 px-2">
+
+        <div class="row">
+          <div class="col widget-holder">
+
+            <div class="btn-group action-main" dropdown>
+              <button id="button-basic" dropdownToggle type="button" class="btn btn-success dropdown-toggle"
+                aria-controls="dropdown-basic">
+                <i class="fas fa-plus"></i>
+                {{ addWidgetLable  | localize }} <span class="caret"></span>
+              </button>
+
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <li role="menuitem" *ngFor="let type of widgetTypes; let i = index"><a class="dropdown-item"
+                    (click)="addWidget(type.id)">{{ type.name | localize}}</a></li>
+              </ul>
+            </div>
+
+            <div class="mt-5">
+              <bs-sortable [(ngModel)]="widgets" name="widgets" [itemTemplate]="itemTemplate" itemClass="sortable-item"
+                itemActiveClass="sortable-item-active" placeholderItem="Drag here" placeholderClass="placeholderStyle"
+                wrapperClass="sortable-wrapper"> </bs-sortable>
+            </div>
+            <pre>{{widgets | json}}</pre>
+
+            <ng-template #itemTemplate let-item="item" let-index="index">
+
+              <div class="mb-1">
+
+                <div class="btn btn-info mb-1 text-left {{getWidgetWidth(item.value.sizeType)}}">
+
+                  <i class="fas fa-arrows-alt"></i>
+
+                  <button type="button" class="btn btn-secondary expand-collapse"
+                    (click)="item.value.isCollapsed = !item.value.isCollapsed"
+                    [attr.aria-expanded]="!item.value.isCollapsed" aria-controls="collapseBasic">
+                    <i class="fas fa-chevron-right" *ngIf="!item.value.isCollapsed"></i>
+                    <i class="fas fa-chevron-down" *ngIf="item.value.isCollapsed"></i>
+                  </button>
+
+                  {{widgetName(item.value.widgetType)}}
+
+                </div>
+
+                <div [collapse]="!item.value.isCollapsed">
+                  <div class="top-action mb-1 ">
+
+                    <div class="btn-group" dropdown>
+                      <button id="button-basic" dropdownToggle type="button"
+                        class="btn btn-success dropdown-toggle btn-sm" aria-controls="dropdown-basic">
+                        <i class="fas fa-align-left" *ngIf="item.value.position == 0"></i>
+                        <i class="fas fa-align-center" *ngIf="item.value.position == 1"></i>
+                        <i class="fas fa-align-right" *ngIf="item.value.position == 2"></i>
+                        <i class="fas fa-align-justify" *ngIf="item.value.position == 3"></i>
+                        <span class="caret"></span>
+                      </button>
+
+                      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                        aria-labelledby="button-basic">
+                        <li role="menuitem" *ngFor="let position of positions; let i = index">
+                          <a class="dropdown-item"
+                            (click)="setPosition(position,item.value)">{{ position.name | localize}}</a></li>
+                      </ul>
+                    </div>
+
+                    <div class="btn-group ml-1" dropdown>
+                      <button id="button-size" dropdownToggle type="button"
+                        class="btn btn-success dropdown-toggle btn-sm" aria-controls="dropdown-basic">
+                        <i *ngIf="item.value.sizeType == 0">25</i>
+                        <i *ngIf="item.value.sizeType == 1">33</i>
+                        <i *ngIf="item.value.sizeType == 2">50</i>
+                        <i *ngIf="item.value.sizeType == 3">66</i>
+                        <i *ngIf="item.value.sizeType == 4">75</i>
+                        <i *ngIf="item.value.sizeType == 5">100</i>
+                        <span class="caret"></span>
+                      </button>
+
+                      <ul id="dropdown-size" *dropdownMenu class="dropdown-menu" role="menu"
+                        aria-labelledby="button-basic">
+                        <li role="menuitem" *ngFor="let size of sizeTypes; let i = index">
+                          <a class="dropdown-item" (click)="setSize(size,item.value)">{{ size.name}} %</a></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                  <textarea *ngIf="item.value.widgetType == 1" [(ngModel)]="item.value.content"
+                    name="htmlWidget"></textarea>
+
+                  <ckeditor *ngIf="item.value.widgetType == 3 show" [(ngModel)]="item.value.content"
+                    [editor]="widgetEditor" name="widgetContent">
+                  </ckeditor>
+
+                  <textarea *ngIf="item.value.widgetType == 4" [(ngModel)]="item.value.content"
+                    name="quoteWidget"></textarea>
+
+                </div>
+              </div>
+            </ng-template>
+
+          </div>
+        </div>
+
       </tab>
     </tabset>
   </div>
-  <abp-modal-footer
-    [cancelDisabled]="saving"
-    [saveDisabled]="!editPageModal.form.valid || saving"
-    (onCancelClick)="bsModalRef.hide()"
-  ></abp-modal-footer>
+  <abp-modal-footer [cancelDisabled]="saving" [saveDisabled]="!editPageModal.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
 </form>
 <!-- min-height: 500px !important; -->

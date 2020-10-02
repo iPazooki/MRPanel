@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "declaration": false,
+    "allowJs": true,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": [ "es6", "dom" ],
+    "lib": ["es6", "dom"],
     "mapRoot": "./",
     "module": "esnext",
     "skipLibCheck": true,
@@ -12,23 +13,15 @@
     "outDir": "../dist/out-tsc",
     "sourceMap": true,
     "target": "es2015",
-    "typeRoots": [
-      "../node_modules/@types"
-    ],
+    "typeRoots": ["../node_modules/@types"],
     "baseUrl": ".",
     "paths": {
-      "@abp/*": [ "../node_modules/abp-ng2-module/dist/src/*" ],
-      "@app/*": [ "./app/*" ],
-      "@shared/*": [ "./shared/*" ],
-      "@node_modules/*": [ "../node_modules/*" ]
+      "@abp/*": ["../node_modules/abp-ng2-module/dist/src/*"],
+      "@app/*": ["./app/*"],
+      "@shared/*": ["./shared/*"],
+      "@node_modules/*": ["../node_modules/*"]
     }
   },
-  "files": [
-    "main.ts",
-    "polyfills.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts",
-    "typings.d.ts"
-  ]
+  "files": ["main.ts", "polyfills.ts"],
+  "include": ["src/**/*.d.ts", "typings.d.ts"]
 }
