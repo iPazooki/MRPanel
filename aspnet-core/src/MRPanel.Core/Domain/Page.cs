@@ -1,5 +1,4 @@
 ﻿using Abp.Domain.Entities.Auditing;
-using MRPanel.Domain.Enum;
 using System;
 using System.Collections.Generic;
 
@@ -15,9 +14,7 @@ namespace MRPanel.Domain
 
         public PageType PageType { get; set; }
 
-        public bool IsMainPage { get; set; }
-
-        public ContentPlace ContentPlace { get; set; }
+        public bool IsHomePage { get; set; }
 
         public ICollection<Widget> Widgets { get; set; }
     }

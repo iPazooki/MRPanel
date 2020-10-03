@@ -1,5 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
 using System;
+using System.Collections.Generic;
 
 namespace MRPanel.Services
 {
@@ -9,5 +10,7 @@ namespace MRPanel.Services
         public string Title { get; set; }
 
         public string Summery { get; set; }
+
+        public List<WidgetDto> Widgets { get; set; }
     }
 }

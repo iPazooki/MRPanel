@@ -15,7 +15,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Abp.Castle.Log4Net" Version="5.12.0" />
+    <PackageReference Include="Abp.Castle.Log4Net" Version="5.13.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MRPanel.Core\MRPanel.Core.csproj" />

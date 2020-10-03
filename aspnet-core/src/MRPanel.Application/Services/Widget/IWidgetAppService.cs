@@ -11,8 +11,10 @@ namespace MRPanel.Services
 
         Task<IEnumerable<WidgetDto>> GetByPageId(Guid pageId);
 
-        Task<Guid> Save(WidgetSaveDto widget);
+        Task<Guid> Save(WidgetDto widget);
 
         Task<WidgetDto> Get(Guid id);
+
+        Task SaveList(Guid pageId, List<WidgetDto> widgetDtos);
     }
 }

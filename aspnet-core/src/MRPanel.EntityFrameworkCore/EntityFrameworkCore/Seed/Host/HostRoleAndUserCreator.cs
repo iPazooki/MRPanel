@@ -76,7 +76,7 @@ namespace MRPanel.EntityFrameworkCore.Seed.Host
                     UserName = AbpUserBase.AdminUserName,
                     Name = "admin",
                     Surname = "admin",
-                    EmailAddress = "ipazooki@gmail.com",
+                    EmailAddress = "admin@aspnetboilerplate.com",
                     IsEmailConfirmed = true,
                     IsActive = true
                 };

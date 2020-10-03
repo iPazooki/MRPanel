@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
 using Abp.Authorization.Roles;
+using Abp.AutoMapper;
 using MRPanel.Authorization.Roles;
 
 namespace MRPanel.Roles.Dto

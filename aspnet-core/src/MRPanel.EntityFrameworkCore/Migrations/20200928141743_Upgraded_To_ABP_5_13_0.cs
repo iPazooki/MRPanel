@@ -2,7 +2,7 @@
 
 namespace MRPanel.Migrations
 {
-    public partial class Upgraded_To_Abp_5_12 : Migration
+    public partial class Upgraded_To_ABP_5_13_0 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,15 +17,6 @@ namespace MRPanel.Migrations
 
             migrationBuilder.DropTable(
                 name: "AbpDynamicParameters");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Title",
-                table: "Pages",
-                maxLength: 256,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(250)",
-                oldMaxLength: 250);
 
             migrationBuilder.CreateTable(
                 name: "AbpDynamicProperties",
@@ -150,15 +141,6 @@ namespace MRPanel.Migrations
 
             migrationBuilder.DropTable(
                 name: "AbpDynamicProperties");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Title",
-                table: "Pages",
-                type: "nvarchar(250)",
-                maxLength: 250,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldMaxLength: 256);
 
             migrationBuilder.CreateTable(
                 name: "AbpDynamicParameters",

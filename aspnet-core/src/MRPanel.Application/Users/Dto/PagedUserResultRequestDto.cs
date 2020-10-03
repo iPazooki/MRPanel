@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using System;
 
 namespace MRPanel.Users.Dto
 {

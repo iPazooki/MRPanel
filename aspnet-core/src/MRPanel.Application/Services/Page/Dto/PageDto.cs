@@ -9,7 +9,6 @@ using System.ComponentModel.DataAnnotations;
 namespace MRPanel.Services
 {
     //TODO: We should use Fluent Validation
-    [AutoMapFrom(typeof(Page))]
     public class PageDto : FullAuditedEntityDto<Guid>
     {
         [Required]
@@ -24,12 +23,6 @@ namespace MRPanel.Services
         [Required]
         public PageType PageType { get; set; }
 
-        public ContentPlace ContentPlace { get; set; }
-
-        public bool IsMainPage { get; set; }
-
-        public Widget Widget { get; set; }
-
-        public IList<Widget> Widgets { get; set; }
+        public bool IsHomePage { get; set; }
     }
 }

@@ -2,11 +2,11 @@
 {
     public enum SizeType
     {
-        TwentyFive,
-        ThirtyThree,
-        Fifty,
-        SixtySix,
-        SeventyFive,
-        Hundred
+        _25,
+        _33,
+        _50,
+        _66,
+        _75,
+        _100
     }
 }

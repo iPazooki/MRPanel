@@ -5,6 +5,8 @@ using MRPanel.Services;
 using System.Linq;
 using MRPanel.Domain.Enum;
 using Abp.Application.Services.Dto;
+using System.Collections.Generic;
+using System;
 
 namespace MRPanel.Tests.Users
 {
@@ -42,7 +44,7 @@ namespace MRPanel.Tests.Users
 
             var page = pages.Items.FirstOrDefault();
 
-            var widgetDto = new WidgetSaveDto
+            var widgetDto = new WidgetDto
             {
                 Content = "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
                 WidgetType = WidgetType.Paragraph,
@@ -59,6 +61,46 @@ namespace MRPanel.Tests.Users
         }
 
         [Fact]
+        public async Task CreateManyWidgets_Test()
+        {
+            // Act
+
+            await CreatePage_Test();
+
+            var pages = await _pageAppService.GetAllAsync(new PagedAndSortedResultRequestDto() { MaxResultCount = 10 });
+
+            var page = pages.Items.FirstOrDefault();
+
+            var widgets = new List<WidgetDto> {
+                    new WidgetDto
+                    {
+                        Content = "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+                        WidgetType = WidgetType.Paragraph,
+                        PageId = page.Id,
+                        ParentId = null,
+                        Position = Position.Center,
+                        SizeType = SizeType._25
+                    } ,
+                    new WidgetDto
+                    {
+                        Content = "<p>MRP</p>",
+                        WidgetType = WidgetType.Html,
+                        PageId = page.Id,
+                        ParentId = null,
+                        Position = Position.Left,
+                        SizeType = SizeType._50
+                    }
+            };
+
+            await _widgetAppService.SaveList(page.Id, widgets);
+
+            var result = await _widgetAppService.GetAll();
+
+            // Assert
+            result.Count().ShouldBeGreaterThan(1);
+        }
+
+        [Fact]
         public async Task UpdateWidget_Test()
         {
             // Act
@@ -69,11 +111,11 @@ namespace MRPanel.Tests.Users
 
             var widgetDto = widgets.First();
 
-            var widgetSaveDto = new WidgetSaveDto
+            var widgetSaveDto = new WidgetDto
             {
                 Id = widgetDto.Id,
                 PageId = widgetDto.PageId,
-                //Size = 50
+                SizeType = SizeType._66
             };
 
             var resultId = await _widgetAppService.Save(widgetSaveDto);
@@ -82,7 +124,7 @@ namespace MRPanel.Tests.Users
 
             // Assert
 
-            widgetUpdated.SizeType.ShouldBe(SizeType.Fifty);
+            widgetUpdated.SizeType.ShouldBe(SizeType._66);
         }
     }
 }

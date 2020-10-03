@@ -8,7 +8,10 @@ namespace MRPanel.Services
         public PageMapProfile()
         {
             CreateMap<PageDto, Page>();
-            CreateMap<Page, SitePageDto>();
+            CreateMap<Page, PageDto>();
+
+            CreateMap<Page, SitePageDto>()
+                .ForMember(x => x.Widgets, s => s.Ignore());
         }
     }
 }

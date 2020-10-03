@@ -19,9 +19,6 @@ namespace MRPanel.EntityFrameworkCore.Mappings
                .IsRequired()
                .HasConversion<int>();
 
-            builder.Property(x => x.ContentPlace)
-                .HasConversion<int>();
-
             builder.HasMany(x => x.Widgets)
                 .WithOne(s => s.Page);
         }

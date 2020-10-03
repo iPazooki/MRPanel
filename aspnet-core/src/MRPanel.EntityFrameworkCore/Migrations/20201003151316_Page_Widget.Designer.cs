@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MRPanel.Migrations
 {
     [DbContext(typeof(MRPanelDbContext))]
-    [Migration("20201001093420_Add_Update_Classes")]
-    partial class Add_Update_Classes
+    [Migration("20201003151316_Page_Widget")]
+    partial class Page_Widget
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -1524,9 +1524,6 @@ namespace MRPanel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ContentPlace")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
@@ -1542,7 +1539,7 @@ namespace MRPanel.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsMainPage")
+                    b.Property<bool>("IsHomePage")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastModificationTime")

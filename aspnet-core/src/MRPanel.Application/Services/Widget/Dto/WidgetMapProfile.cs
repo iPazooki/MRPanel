@@ -9,10 +9,9 @@ namespace MRPanel.Services
         {
             CreateMap<Widget, WidgetDto>();
 
-            CreateMap<WidgetSaveDto, Widget>()
-                .ForMember(x => x.Page, s => s.Ignore())
-                .ForMember(x => x.Parent, s => s.Ignore())
-                .ForMember(x => x.Widgets, s => s.Ignore());
+            CreateMap<WidgetDto, Widget>()
+                .ForMember(x => x.Widgets, s => s.Ignore())
+                .ForMember(x => x.Id, s => s.PreCondition(w => w.Id.HasValue));
         }
     }
 }

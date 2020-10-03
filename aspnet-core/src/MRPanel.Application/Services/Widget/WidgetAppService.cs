@@ -45,13 +45,23 @@ namespace MRPanel.Services
             return _objectMapper.Map<List<WidgetDto>>(items);
         }
 
-        public async Task<Guid> Save(WidgetSaveDto widget)
+        public async Task<Guid> Save(WidgetDto widget)
         {
             var widgetObj = _objectMapper.Map<Widget>(widget);
 
             widgetObj.Page = await _pageRepository.GetAsync(widget.PageId);
 
             return await _widgetRepository.InsertOrUpdateAndGetIdAsync(widgetObj);
+        }
+
+        public async Task SaveList(Guid pageId, List<WidgetDto> widgetDtos)
+        {
+            await _widgetRepository.DeleteAsync(x => x.PageId == pageId);
+
+            foreach (var widgetDto in widgetDtos)
+            {
+                await Save(widgetDto);
+            }
         }
     }
 }
