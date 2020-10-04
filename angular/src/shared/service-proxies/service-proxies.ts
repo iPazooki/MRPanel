@@ -2265,7 +2265,7 @@ export class WidgetServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    save(body: WidgetSaveDto | undefined): Observable<string> {
+    save(body: WidgetDto | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/services/app/Widget/Save";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2315,6 +2315,63 @@ export class WidgetServiceProxy {
             }));
         }
         return _observableOf<string>(<any>null);
+    }
+
+    /**
+     * @param pageId (optional) 
+     * @param body (optional) 
+     * @return Success
+     */
+    saveList(pageId: string | undefined, body: WidgetDto[] | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Widget/SaveList?";
+        if (pageId === null)
+            throw new Error("The parameter 'pageId' cannot be null.");
+        else if (pageId !== undefined)
+            url_ += "pageId=" + encodeURIComponent("" + pageId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSaveList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSaveList(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSaveList(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -4678,7 +4735,7 @@ export class WidgetDto implements IWidgetDto {
     position: Position;
     pageId: string;
     parentId: string | undefined;
-    id: string;
+    id: string | undefined;
 
     constructor(data?: IWidgetDto) {
         if (data) {
@@ -4741,110 +4798,7 @@ export interface IWidgetDto {
     position: Position;
     pageId: string;
     parentId: string | undefined;
-    id: string;
-}
-
-export class WidgetSaveDto implements IWidgetSaveDto {
-    widgetType: WidgetType;
-    content: string | undefined;
-    imageAddress: string | undefined;
-    sizeType: SizeType;
-    order: number;
-    position: Position;
-    pageId: string;
-    parentId: string | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: string;
-
-    constructor(data?: IWidgetSaveDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.widgetType = _data["widgetType"];
-            this.content = _data["content"];
-            this.imageAddress = _data["imageAddress"];
-            this.sizeType = _data["sizeType"];
-            this.order = _data["order"];
-            this.position = _data["position"];
-            this.pageId = _data["pageId"];
-            this.parentId = _data["parentId"];
-            this.isDeleted = _data["isDeleted"];
-            this.deleterUserId = _data["deleterUserId"];
-            this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): WidgetSaveDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new WidgetSaveDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["widgetType"] = this.widgetType;
-        data["content"] = this.content;
-        data["imageAddress"] = this.imageAddress;
-        data["sizeType"] = this.sizeType;
-        data["order"] = this.order;
-        data["position"] = this.position;
-        data["pageId"] = this.pageId;
-        data["parentId"] = this.parentId;
-        data["isDeleted"] = this.isDeleted;
-        data["deleterUserId"] = this.deleterUserId;
-        data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-
-    clone(): WidgetSaveDto {
-        const json = this.toJSON();
-        let result = new WidgetSaveDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IWidgetSaveDto {
-    widgetType: WidgetType;
-    content: string | undefined;
-    imageAddress: string | undefined;
-    sizeType: SizeType;
-    order: number;
-    position: Position;
-    pageId: string;
-    parentId: string | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: string;
+    id: string | undefined;
 }
 
 export class ApiException extends Error {

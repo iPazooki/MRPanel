@@ -41,74 +41,10 @@ export class EditPageDialogComponent
   saving = false;
   page = new PageDto();
   widget = new WidgetDto();
-  widgets: WidgetDto[] = [
-    new WidgetDto({
-      widgetType: AppWidgetType.Html,
-      content: "HTML",
-      imageAddress: "",
-      sizeType: AppSizeType[25],
-      order: 1,
-      position: AppPosition.Left,
-      pageId: "string",
-      parentId: "",
-      id: "1",
-    }),
-    new WidgetDto({
-      widgetType: AppWidgetType.Paragraph,
-      content: "Paragraph",
-      imageAddress: "",
-      sizeType: AppSizeType[50],
-      order: 2,
-      position: AppPosition.Right,
-      pageId: "string",
-      parentId: "",
-      id: "2",
-    }),
-    new WidgetDto({
-      widgetType: AppWidgetType.Blockquote,
-      content: "Blockquote",
-      imageAddress: "",
-      sizeType: AppSizeType[66],
-      order: 3,
-      position: AppPosition.Justify,
-      pageId: "string",
-      parentId: "",
-      id: "3",
-    }),
-    new WidgetDto({
-      widgetType: AppWidgetType.Container,
-      content: "",
-      imageAddress: "",
-      sizeType: AppSizeType[100],
-      order: 3,
-      position: AppPosition.Justify,
-      pageId: "string",
-      parentId: "",
-      id: "4",
-    }),
-    new WidgetDto({
-      widgetType: AppWidgetType.Html,
-      content: "",
-      imageAddress: "",
-      sizeType: AppSizeType[50],
-      order: 3,
-      position: AppPosition.Justify,
-      pageId: "string",
-      parentId: "4",
-      id: "5",
-    }),
-    new WidgetDto({
-      widgetType: AppWidgetType.Paragraph,
-      content: "",
-      imageAddress: "",
-      sizeType: AppSizeType[50],
-      order: 3,
-      position: AppPosition.Justify,
-      pageId: "string",
-      parentId: "4",
-      id: "6",
-    }),
-  ];
+  parentWidgets: WidgetDto[];
+  childWidgets: WidgetDto[];
+  widgets: WidgetDto[];
+  allWidgets: WidgetDto[];
   isCollapsed = false;
   buttonName: any = "show";
   id: string;
@@ -164,14 +100,24 @@ export class EditPageDialogComponent
         this.selectPageType(this.page.pageType);
         this.selectContentPlace(this.page.contentPlace);
 
-        // this._widgetService
-        //   .getByPageId(this.id)
-        //   .subscribe((widgetResult: WidgetDto[]) => {
-        //
-        //     // TODO: List widgets
-        //   });
+        this._widgetService
+          .getByPageId(this.id)
+          .subscribe((widgetResult: WidgetDto[]) => {
+            this.allWidgets = widgetResult;
+            this.updateWidgets();
+          });
       });
     }
+  }
+
+  private updateWidgets() {
+    this.parentWidgets = _.filter(this.allWidgets, (item) => {
+      return item.parentId == null;
+    });
+
+    this.childWidgets = _.filter(this.allWidgets, (item) => {
+      return item.parentId != null;
+    });
   }
 
   toggleIsFormVisible(i: number) {
@@ -190,9 +136,13 @@ export class EditPageDialogComponent
           })
         )
         .subscribe(() => {
-          this.notify.info(this.l("SavedSuccessfully"));
-          this.bsModalRef.hide();
-          this.onSave.emit();
+          this._widgetService
+            .saveList(this.id, this.allWidgets)
+            .subscribe(() => {
+              this.notify.info(this.l("SavedSuccessfully"));
+              this.bsModalRef.hide();
+              this.onSave.emit();
+            });
         });
     } else {
       this._pageService
@@ -202,10 +152,14 @@ export class EditPageDialogComponent
             this.saving = false;
           })
         )
-        .subscribe(() => {
-          this.notify.info(this.l("SavedSuccessfully"));
-          this.bsModalRef.hide();
-          this.onSave.emit();
+        .subscribe((result: PageDto) => {
+          this._widgetService
+            .saveList(result.id, this.allWidgets)
+            .subscribe(() => {
+              this.notify.info(this.l("SavedSuccessfully"));
+              this.bsModalRef.hide();
+              this.onSave.emit();
+            });
         });
     }
   }
@@ -256,7 +210,7 @@ export class EditPageDialogComponent
     }
   }
 
-  addWidget(type: WidgetType) {
+  addWidget(type: WidgetType, parentId: string = null) {
     let widget = new WidgetDto({
       widgetType: type,
       content: "",
@@ -264,14 +218,14 @@ export class EditPageDialogComponent
       sizeType: SizeType._1,
       order: 1,
       position: Position._0,
-      pageId: "",
-      parentId: "",
-      id: "",
+      pageId: this.id,
+      parentId: parentId,
+      id: null,
     });
 
-    this.widgets.push(widget);
+    this.allWidgets.push(widget);
 
-    this.widgets = this.widgets.slice();
+    this.updateWidgets();
   }
 
   widgetName(widgetIndex: WidgetType) {
@@ -281,19 +235,19 @@ export class EditPageDialogComponent
   }
 
   setPosition(position: AppPosition, widget: WidgetDto) {
-    const index = this.widgets.findIndex((item: WidgetDto, i: number) => {
+    const index = this.allWidgets.findIndex((item: WidgetDto, i: number) => {
       return item.id === widget.id;
     });
 
-    this.widgets[index].position = position["id"];
+    this.allWidgets[index].position = position["id"];
   }
 
   setSize(size: AppSizeType, widget: WidgetDto) {
-    const index = this.widgets.findIndex((item: WidgetDto, i: number) => {
+    const index = this.allWidgets.findIndex((item: WidgetDto, i: number) => {
       return item.id === widget.id;
     });
 
-    this.widgets[index].sizeType = size["id"];
+    this.allWidgets[index].sizeType = size["id"];
   }
 
   getWidgetWidth(width: number) {
