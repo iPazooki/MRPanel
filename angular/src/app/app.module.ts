@@ -42,7 +42,7 @@ import { SidebarUserPanelComponent } from "./layout/sidebar-user-panel.component
 import { SidebarMenuComponent } from "./layout/sidebar-menu.component";
 // pages
 import { PagesComponent } from "./pages/pages.component";
-import { EditPageDialogComponent } from "./pages/enter-page/enter-page-dialog.component";
+import { EnterPageDialogComponent } from "./pages/enter-page/enter-page-dialog.component";
 
 @NgModule({
   declarations: [
@@ -75,7 +75,7 @@ import { EditPageDialogComponent } from "./pages/enter-page/enter-page-dialog.co
     SidebarMenuComponent,
     // pages
     PagesComponent,
-    EditPageDialogComponent,
+    EnterPageDialogComponent,
   ],
   imports: [
     CommonModule,

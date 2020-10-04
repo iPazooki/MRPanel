@@ -11,7 +11,7 @@ import {
   PageDto,
   PageDtoPagedResultDto,
 } from "@shared/service-proxies/service-proxies";
-import { EditPageDialogComponent } from "./enter-page/enter-page-dialog.component";
+import { EnterPageDialogComponent } from "./enter-page/enter-page-dialog.component";
 import { AppPageType } from "@shared/AppEnums";
 
 @Component({
@@ -35,8 +35,7 @@ export class PagesComponent extends PagedListingComponentBase<PageDto> {
   CreateOrEditPage(page?: PageDto): void {
     if (page != undefined) {
       this.showCreateOrEditPageDialog(page.id);
-    }
-    else {
+    } else {
       this.showCreateOrEditPageDialog();
     }
   }
@@ -82,15 +81,12 @@ export class PagesComponent extends PagedListingComponentBase<PageDto> {
   private showCreateOrEditPageDialog(id?: string): void {
     let createOrEditPageDialog: BsModalRef;
 
-    createOrEditPageDialog = this._modalService.show(
-      EditPageDialogComponent,
-      {
-        class: "modal-lg",
-        initialState: {
-          id: id,
-        },
-      }
-    );
+    createOrEditPageDialog = this._modalService.show(EnterPageDialogComponent, {
+      class: "modal-lg",
+      initialState: {
+        id: id,
+      },
+    });
 
     createOrEditPageDialog.content.onSave.subscribe(() => {
       this.refresh();

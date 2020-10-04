@@ -1,9 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
-using Abp.AutoMapper;
 using MRPanel.Domain;
-using MRPanel.Domain.Enum;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MRPanel.Services
@@ -17,7 +14,6 @@ namespace MRPanel.Services
 
         public string Summery { get; set; }
 
-        [Required]
         public string Content { get; set; }
 
         [Required]

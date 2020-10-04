@@ -1085,6 +1085,117 @@ export class SitePageServiceProxy {
         }
         return _observableOf<SitePageDto[]>(<any>null);
     }
+
+    /**
+     * @param pageType (optional) 
+     * @return Success
+     */
+    getAllByPageType(pageType: PageType | undefined): Observable<SitePageDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/SitePage/GetAllByPageType?";
+        if (pageType === null)
+            throw new Error("The parameter 'pageType' cannot be null.");
+        else if (pageType !== undefined)
+            url_ += "pageType=" + encodeURIComponent("" + pageType) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllByPageType(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllByPageType(<any>response_);
+                } catch (e) {
+                    return <Observable<SitePageDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SitePageDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllByPageType(response: HttpResponseBase): Observable<SitePageDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(SitePageDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SitePageDto[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getHomePage(): Observable<SitePageDto> {
+        let url_ = this.baseUrl + "/api/services/app/SitePage/GetHomePage";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetHomePage(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetHomePage(<any>response_);
+                } catch (e) {
+                    return <Observable<SitePageDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SitePageDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetHomePage(response: HttpResponseBase): Observable<SitePageDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = SitePageDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SitePageDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -2626,247 +2737,12 @@ export enum PageType {
     _2 = 2,
 }
 
-export enum ContentPlace {
-    _0 = 0,
-    _1 = 1,
-    _2 = 2,
-}
-
-export enum WidgetType {
-    _0 = 0,
-    _1 = 1,
-    _2 = 2,
-    _3 = 3,
-    _4 = 4,
-}
-
-export enum SizeType {
-    _0 = 0,
-    _1 = 1,
-    _2 = 2,
-    _3 = 3,
-    _4 = 4,
-    _5 = 5,
-}
-
-export enum Position {
-    _0 = 0,
-    _1 = 1,
-    _2 = 2,
-    _3 = 3,
-}
-
-export class Page implements IPage {
-    title: string | undefined;
-    summery: string | undefined;
-    content: string | undefined;
-    pageType: PageType;
-    isMainPage: boolean;
-    contentPlace: ContentPlace;
-    widgets: Widget[] | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: string;
-
-    constructor(data?: IPage) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.title = _data["title"];
-            this.summery = _data["summery"];
-            this.content = _data["content"];
-            this.pageType = _data["pageType"];
-            this.isMainPage = _data["isMainPage"];
-            this.contentPlace = _data["contentPlace"];
-            if (Array.isArray(_data["widgets"])) {
-                this.widgets = [] as any;
-                for (let item of _data["widgets"])
-                    this.widgets.push(Widget.fromJS(item));
-            }
-            this.isDeleted = _data["isDeleted"];
-            this.deleterUserId = _data["deleterUserId"];
-            this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): Page {
-        data = typeof data === 'object' ? data : {};
-        let result = new Page();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["title"] = this.title;
-        data["summery"] = this.summery;
-        data["content"] = this.content;
-        data["pageType"] = this.pageType;
-        data["isMainPage"] = this.isMainPage;
-        data["contentPlace"] = this.contentPlace;
-        if (Array.isArray(this.widgets)) {
-            data["widgets"] = [];
-            for (let item of this.widgets)
-                data["widgets"].push(item.toJSON());
-        }
-        data["isDeleted"] = this.isDeleted;
-        data["deleterUserId"] = this.deleterUserId;
-        data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-
-    clone(): Page {
-        const json = this.toJSON();
-        let result = new Page();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IPage {
-    title: string | undefined;
-    summery: string | undefined;
-    content: string | undefined;
-    pageType: PageType;
-    isMainPage: boolean;
-    contentPlace: ContentPlace;
-    widgets: Widget[] | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: string;
-}
-
-export class Widget implements IWidget {
-    widgetType: WidgetType;
-    content: string | undefined;
-    imageAddress: string | undefined;
-    sizeType: SizeType;
-    position: Position;
-    page: Page;
-    pageId: string;
-    parentId: string | undefined;
-    parent: Widget;
-    order: number;
-    widgets: Widget[] | undefined;
-    id: string;
-
-    constructor(data?: IWidget) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.widgetType = _data["widgetType"];
-            this.content = _data["content"];
-            this.imageAddress = _data["imageAddress"];
-            this.sizeType = _data["sizeType"];
-            this.position = _data["position"];
-            this.page = _data["page"] ? Page.fromJS(_data["page"]) : <any>undefined;
-            this.pageId = _data["pageId"];
-            this.parentId = _data["parentId"];
-            this.parent = _data["parent"] ? Widget.fromJS(_data["parent"]) : <any>undefined;
-            this.order = _data["order"];
-            if (Array.isArray(_data["widgets"])) {
-                this.widgets = [] as any;
-                for (let item of _data["widgets"])
-                    this.widgets.push(Widget.fromJS(item));
-            }
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): Widget {
-        data = typeof data === 'object' ? data : {};
-        let result = new Widget();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["widgetType"] = this.widgetType;
-        data["content"] = this.content;
-        data["imageAddress"] = this.imageAddress;
-        data["sizeType"] = this.sizeType;
-        data["position"] = this.position;
-        data["page"] = this.page ? this.page.toJSON() : <any>undefined;
-        data["pageId"] = this.pageId;
-        data["parentId"] = this.parentId;
-        data["parent"] = this.parent ? this.parent.toJSON() : <any>undefined;
-        data["order"] = this.order;
-        if (Array.isArray(this.widgets)) {
-            data["widgets"] = [];
-            for (let item of this.widgets)
-                data["widgets"].push(item.toJSON());
-        }
-        data["id"] = this.id;
-        return data; 
-    }
-
-    clone(): Widget {
-        const json = this.toJSON();
-        let result = new Widget();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IWidget {
-    widgetType: WidgetType;
-    content: string | undefined;
-    imageAddress: string | undefined;
-    sizeType: SizeType;
-    position: Position;
-    page: Page;
-    pageId: string;
-    parentId: string | undefined;
-    parent: Widget;
-    order: number;
-    widgets: Widget[] | undefined;
-    id: string;
-}
-
 export class PageDto implements IPageDto {
     title: string;
     summery: string | undefined;
-    content: string;
+    content: string | undefined;
     pageType: PageType;
-    contentPlace: ContentPlace;
-    isMainPage: boolean;
-    widget: Widget;
-    widgets: Widget[] | undefined;
+    isHomePage: boolean;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: moment.Moment | undefined;
@@ -2891,14 +2767,7 @@ export class PageDto implements IPageDto {
             this.summery = _data["summery"];
             this.content = _data["content"];
             this.pageType = _data["pageType"];
-            this.contentPlace = _data["contentPlace"];
-            this.isMainPage = _data["isMainPage"];
-            this.widget = _data["widget"] ? Widget.fromJS(_data["widget"]) : <any>undefined;
-            if (Array.isArray(_data["widgets"])) {
-                this.widgets = [] as any;
-                for (let item of _data["widgets"])
-                    this.widgets.push(Widget.fromJS(item));
-            }
+            this.isHomePage = _data["isHomePage"];
             this.isDeleted = _data["isDeleted"];
             this.deleterUserId = _data["deleterUserId"];
             this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
@@ -2923,14 +2792,7 @@ export class PageDto implements IPageDto {
         data["summery"] = this.summery;
         data["content"] = this.content;
         data["pageType"] = this.pageType;
-        data["contentPlace"] = this.contentPlace;
-        data["isMainPage"] = this.isMainPage;
-        data["widget"] = this.widget ? this.widget.toJSON() : <any>undefined;
-        if (Array.isArray(this.widgets)) {
-            data["widgets"] = [];
-            for (let item of this.widgets)
-                data["widgets"].push(item.toJSON());
-        }
+        data["isHomePage"] = this.isHomePage;
         data["isDeleted"] = this.isDeleted;
         data["deleterUserId"] = this.deleterUserId;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
@@ -2953,12 +2815,9 @@ export class PageDto implements IPageDto {
 export interface IPageDto {
     title: string;
     summery: string | undefined;
-    content: string;
+    content: string | undefined;
     pageType: PageType;
-    contentPlace: ContentPlace;
-    isMainPage: boolean;
-    widget: Widget;
-    widgets: Widget[] | undefined;
+    isHomePage: boolean;
     isDeleted: boolean;
     deleterUserId: number | undefined;
     deletionTime: moment.Moment | undefined;
@@ -3838,9 +3697,109 @@ export interface IGetCurrentLoginInformationsOutput {
     tenant: TenantLoginInfoDto;
 }
 
+export enum WidgetType {
+    _0 = 0,
+    _1 = 1,
+    _2 = 2,
+    _3 = 3,
+    _4 = 4,
+}
+
+export enum SizeType {
+    _0 = 0,
+    _1 = 1,
+    _2 = 2,
+    _3 = 3,
+    _4 = 4,
+    _5 = 5,
+}
+
+export enum Position {
+    _0 = 0,
+    _1 = 1,
+    _2 = 2,
+    _3 = 3,
+}
+
+export class WidgetDto implements IWidgetDto {
+    widgetType: WidgetType;
+    content: string | undefined;
+    imageAddress: string | undefined;
+    sizeType: SizeType;
+    order: number;
+    position: Position;
+    pageId: string;
+    parentId: string | undefined;
+    id: string | undefined;
+
+    constructor(data?: IWidgetDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.widgetType = _data["widgetType"];
+            this.content = _data["content"];
+            this.imageAddress = _data["imageAddress"];
+            this.sizeType = _data["sizeType"];
+            this.order = _data["order"];
+            this.position = _data["position"];
+            this.pageId = _data["pageId"];
+            this.parentId = _data["parentId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): WidgetDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new WidgetDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["widgetType"] = this.widgetType;
+        data["content"] = this.content;
+        data["imageAddress"] = this.imageAddress;
+        data["sizeType"] = this.sizeType;
+        data["order"] = this.order;
+        data["position"] = this.position;
+        data["pageId"] = this.pageId;
+        data["parentId"] = this.parentId;
+        data["id"] = this.id;
+        return data; 
+    }
+
+    clone(): WidgetDto {
+        const json = this.toJSON();
+        let result = new WidgetDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IWidgetDto {
+    widgetType: WidgetType;
+    content: string | undefined;
+    imageAddress: string | undefined;
+    sizeType: SizeType;
+    order: number;
+    position: Position;
+    pageId: string;
+    parentId: string | undefined;
+    id: string | undefined;
+}
+
 export class SitePageDto implements ISitePageDto {
     title: string | undefined;
     summery: string | undefined;
+    widgets: WidgetDto[] | undefined;
     id: string;
 
     constructor(data?: ISitePageDto) {
@@ -3856,6 +3815,11 @@ export class SitePageDto implements ISitePageDto {
         if (_data) {
             this.title = _data["title"];
             this.summery = _data["summery"];
+            if (Array.isArray(_data["widgets"])) {
+                this.widgets = [] as any;
+                for (let item of _data["widgets"])
+                    this.widgets.push(WidgetDto.fromJS(item));
+            }
             this.id = _data["id"];
         }
     }
@@ -3871,6 +3835,11 @@ export class SitePageDto implements ISitePageDto {
         data = typeof data === 'object' ? data : {};
         data["title"] = this.title;
         data["summery"] = this.summery;
+        if (Array.isArray(this.widgets)) {
+            data["widgets"] = [];
+            for (let item of this.widgets)
+                data["widgets"].push(item.toJSON());
+        }
         data["id"] = this.id;
         return data; 
     }
@@ -3886,6 +3855,7 @@ export class SitePageDto implements ISitePageDto {
 export interface ISitePageDto {
     title: string | undefined;
     summery: string | undefined;
+    widgets: WidgetDto[] | undefined;
     id: string;
 }
 
@@ -4724,81 +4694,6 @@ export class UserDtoPagedResultDto implements IUserDtoPagedResultDto {
 export interface IUserDtoPagedResultDto {
     totalCount: number;
     items: UserDto[] | undefined;
-}
-
-export class WidgetDto implements IWidgetDto {
-    widgetType: WidgetType;
-    content: string | undefined;
-    imageAddress: string | undefined;
-    sizeType: SizeType;
-    order: number;
-    position: Position;
-    pageId: string;
-    parentId: string | undefined;
-    id: string | undefined;
-
-    constructor(data?: IWidgetDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.widgetType = _data["widgetType"];
-            this.content = _data["content"];
-            this.imageAddress = _data["imageAddress"];
-            this.sizeType = _data["sizeType"];
-            this.order = _data["order"];
-            this.position = _data["position"];
-            this.pageId = _data["pageId"];
-            this.parentId = _data["parentId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): WidgetDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new WidgetDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["widgetType"] = this.widgetType;
-        data["content"] = this.content;
-        data["imageAddress"] = this.imageAddress;
-        data["sizeType"] = this.sizeType;
-        data["order"] = this.order;
-        data["position"] = this.position;
-        data["pageId"] = this.pageId;
-        data["parentId"] = this.parentId;
-        data["id"] = this.id;
-        return data; 
-    }
-
-    clone(): WidgetDto {
-        const json = this.toJSON();
-        let result = new WidgetDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IWidgetDto {
-    widgetType: WidgetType;
-    content: string | undefined;
-    imageAddress: string | undefined;
-    sizeType: SizeType;
-    order: number;
-    position: Position;
-    pageId: string;
-    parentId: string | undefined;
-    id: string | undefined;
 }
 
 export class ApiException extends Error {

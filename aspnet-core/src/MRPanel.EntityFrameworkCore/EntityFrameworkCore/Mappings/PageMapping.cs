@@ -12,15 +12,15 @@ namespace MRPanel.EntityFrameworkCore.Mappings
                 .IsRequired()
                 .HasMaxLength(MRPanelConsts.Length256);
 
-            builder.Property(x => x.Content)
-                .IsRequired();
+            builder.Property(x => x.Content);
 
             builder.Property(x => x.PageType)
                .IsRequired()
                .HasConversion<int>();
 
             builder.HasMany(x => x.Widgets)
-                .WithOne(s => s.Page);
+                .WithOne(s => s.Page)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

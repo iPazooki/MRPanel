@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace MRPanel.Services
 {
-    //TODO: We should use Fluent Validation
     public class SitePageDto : EntityDto<Guid>
     {
         public string Title { get; set; }

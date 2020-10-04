@@ -1,7 +1,6 @@
 import {
   TenantAvailabilityState,
   PageType,
-  ContentPlace,
   WidgetType,
   Position,
   SizeType,
@@ -17,12 +16,6 @@ export class AppPageType {
   static Page: number = PageType._0;
   static News: number = PageType._1;
   static Article: number = PageType._2;
-}
-
-export class AppContentPlace {
-  static Up: number = ContentPlace._0;
-  static Middle: number = ContentPlace._1;
-  static Bottom: number = ContentPlace._2;
 }
 
 export class AppWidgetType {

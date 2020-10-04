@@ -7,6 +7,8 @@ using MRPanel.Domain.Enum;
 using Abp.Application.Services.Dto;
 using System.Collections.Generic;
 using System;
+using Microsoft.EntityFrameworkCore;
+using Abp.Timing;
 
 namespace MRPanel.Tests.Users
 {
@@ -38,20 +40,26 @@ namespace MRPanel.Tests.Users
         {
             // Act
 
-            await CreatePage_Test();
+            var pageDto = new PageDto
+            {
+                Title = "Lorem Ipsum is simply dummy text of the printing and typesetting",
+                CreationTime = Clock.Now,
+                PageType = Domain.PageType.Page,
+                IsDeleted = false,
+                IsHomePage = true
+            };
 
-            var pages = await _pageAppService.GetAllAsync(new PagedAndSortedResultRequestDto() { MaxResultCount = 10 });
-
-            var page = pages.Items.FirstOrDefault();
+            var resultPage = await CreatePage(pageDto);
 
             var widgetDto = new WidgetDto
             {
                 Content = "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
                 WidgetType = WidgetType.Paragraph,
-                PageId = page.Id,
+                PageId = resultPage.Id,
                 ParentId = null,
                 Position = Position.Center,
-                //Size = 100
+                SizeType = SizeType._100,
+                Order = 1
             };
 
             var result = await _widgetAppService.Save(widgetDto);
@@ -65,18 +73,23 @@ namespace MRPanel.Tests.Users
         {
             // Act
 
-            await CreatePage_Test();
+            var pageDto = new PageDto
+            {
+                Title = "Lorem Ipsum is simply dummy text of the printing and typesetting",
+                CreationTime = Clock.Now,
+                PageType = Domain.PageType.Page,
+                IsDeleted = false,
+                IsHomePage = true
+            };
 
-            var pages = await _pageAppService.GetAllAsync(new PagedAndSortedResultRequestDto() { MaxResultCount = 10 });
-
-            var page = pages.Items.FirstOrDefault();
+            var resultPage = await CreatePage(pageDto);
 
             var widgets = new List<WidgetDto> {
                     new WidgetDto
                     {
                         Content = "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
                         WidgetType = WidgetType.Paragraph,
-                        PageId = page.Id,
+                        PageId = resultPage.Id,
                         ParentId = null,
                         Position = Position.Center,
                         SizeType = SizeType._25
@@ -85,14 +98,14 @@ namespace MRPanel.Tests.Users
                     {
                         Content = "<p>MRP</p>",
                         WidgetType = WidgetType.Html,
-                        PageId = page.Id,
+                        PageId = resultPage.Id,
                         ParentId = null,
-                        Position = Position.Left,
+                        Position = Position.Right,
                         SizeType = SizeType._50
                     }
             };
 
-            await _widgetAppService.SaveList(page.Id, widgets);
+            await _widgetAppService.SaveList(resultPage.Id, widgets);
 
             var result = await _widgetAppService.GetAll();
 
