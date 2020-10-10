@@ -20,7 +20,7 @@
           <div class="row align-items-center justify-content-center">
             <div class="col-lg-6 text-center">
               <img src="./assets/img/brand/argon-white.png" style="width: 200px;" class="img-fluid">
-              <p class="lead text-white">شرکت سفیر کبیر، با اطمینان کامل سرمایه گذاری کنید</p>
+              <p class="lead text-white">{{siteSetting.slogan}}</p>
               <div class="btn-wrapper mt-5">
                 <a href="#" class="btn btn-lg btn-white btn-icon mb-3 mb-sm-0">
                   <span class="btn-inner--icon"><i class="ni ni-cloud-download-95"></i></span>
@@ -38,11 +38,36 @@
       </div>
       <!-- SVG separator -->
       <div class="separator separator-bottom separator-skew zindex-100">
-        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
           <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
         </svg>
       </div>
     </section>
   </div>
-  <app-sections></app-sections>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>{{page?.title}}</h1>
+      </div>
+      <div class="row justify-content-center">
+        <div *ngFor="let widget of page?.widgets" class="{{getWidgetWidth(widget.sizeType)}}">
+
+          <ng-container *ngIf="widget.widgetType == 1">
+            <div [innerHTML]="widget.content"></div>
+          </ng-container>
+
+          <ng-container *ngIf="widget.widgetType == 3">
+            <p [innerHTML]="widget.content"></p>
+          </ng-container>
+
+          <blockquote *ngIf="widget.widgetType == 4">{{widget.content}}</blockquote>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- 
+  <app-sections></app-sections> -->
 </main>

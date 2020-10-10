@@ -10,7 +10,7 @@ namespace MRPanel.EntityFrameworkCore.Mappings
         {
             builder.Property(x => x.WidgetType)
                 .IsRequired()
-                .HasConversion<string>();
+                .HasConversion<int>();
 
             builder.Property(x => x.Content);
 
@@ -19,10 +19,13 @@ namespace MRPanel.EntityFrameworkCore.Mappings
             builder.Property(x => x.Order);
 
             builder.Property(x => x.SizeType)
-                .HasConversion<string>();
+                .HasConversion<int>();
 
             builder.Property(x => x.Position)
-                .HasConversion<string>();
+                .HasConversion<int>();
+
+            builder.Property(x => x.PageId)
+                .IsRequired();
 
             builder.HasOne(x => x.Page)
                 .WithMany(s => s.Widgets)

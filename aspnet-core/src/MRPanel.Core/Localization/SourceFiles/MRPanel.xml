@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    <text name="GithubUrl" value="Github Url" />
+    <text name="InstagramUrl" value="Instagram Url" />
+    <text name="TwitterUrl" value="Twitter Url" />
+    <text name="FacebookUrl" value="Facebook Url" />
+    <text name="Slogan" value="Slogan" />
+    <text name="SiteName" value="Site name" />
+    <text name="SiteSetting" value="Site settings" />
+    <text name="Widget" value="Widget" />
     <text name="IsHomePage" value="Set as home page" />
     <text name="EditPage" value="Edit Page" />
     <text name="PleaseSelect" value="Please Select" />

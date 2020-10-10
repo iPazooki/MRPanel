@@ -1,37 +1,27 @@
-import { Component, OnInit } from "@angular/core";
-import { finalize } from "rxjs/operators";
+import { Component, OnInit, Injector } from "@angular/core";
 import {
   SitePageDto,
   SitePageServiceProxy,
 } from "@shared/service-proxies/service-proxies";
+import { AppComponentBase } from "../shared/components/app-component-base";
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
 })
-export class HomeComponent implements OnInit {
-  pages: SitePageDto[] = [];
-  model = {
-    left: true,
-    middle: false,
-    right: false,
-  };
+export class HomeComponent extends AppComponentBase implements OnInit {
+  page: SitePageDto = new SitePageDto();
 
-  focus;
-  focus1;
-  constructor(private _pageService: SitePageServiceProxy) {}
+  constructor(injector: Injector, private _pageService: SitePageServiceProxy) {
+    super(injector);
+  }
 
   ngOnInit() {
-    this._pageService
-      .getAll()
-      .subscribe((result: SitePageDto[]) => {
-        this.pages = result;
-        console.log(this.pages);
-      });
-  }
-  result1() {
-    debugger;
-    let t = this.pages;
+    this._pageService.getHomePage().subscribe((result: SitePageDto) => {
+      this.page = result;
+    });
+
+    this.titleService.setTitle(this.siteSetting.siteName);
   }
 }

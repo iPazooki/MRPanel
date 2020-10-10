@@ -24,6 +24,13 @@ namespace MRPanel.Services
             _objectMapper = objectMapper;
         }
 
+        public async Task Delete(Guid widgetId)
+        {
+            await _widgetRepository.DeleteAsync(x => x.ParentId == widgetId);
+
+            await _widgetRepository.DeleteAsync(widgetId);
+        }
+
         public async Task<WidgetDto> Get(Guid id)
         {
             var widget = await _widgetRepository.GetAsync(id);
@@ -51,6 +58,15 @@ namespace MRPanel.Services
 
             widgetObj.Page = await _pageRepository.GetAsync(widget.PageId);
 
+            if (widgetObj.WidgetType == Domain.Enum.WidgetType.Container)
+            {
+                var widgetParent = await _widgetRepository.FirstOrDefaultAsync(x => x.Id == widgetObj.Id);
+                if (widgetParent == null)
+                {
+                    return await _widgetRepository.InsertAndGetIdAsync(widgetObj);
+                }
+            }
+
             return await _widgetRepository.InsertOrUpdateAndGetIdAsync(widgetObj);
         }
 
@@ -60,6 +76,8 @@ namespace MRPanel.Services
 
             foreach (var widgetDto in widgetDtos)
             {
+                widgetDto.PageId = pageId;
+
                 await Save(widgetDto);
             }
         }

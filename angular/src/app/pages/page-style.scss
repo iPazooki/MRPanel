@@ -21,3 +21,15 @@
   font-size: 0.8rem;
   margin-left: 5px;
 }
+
+.widget-item {
+  border: solid 1px #000000;
+  padding: 0;
+  border-radius: 5px;
+
+  .top-action {
+    & > div {
+      height: 35px;
+    }
+  }
+}

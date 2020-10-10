@@ -5,7 +5,6 @@
       <tab [heading]="'Properties' | localize" class="pt-3 px-2">
 
         <div class="form-group row required">
-
           <label class="col-md-3 col-form-label" for="title">
             {{ "Title" | localize }}
           </label>
@@ -59,7 +58,7 @@
         </div>
 
       </tab>
-      <tab [heading]="'Content' | localize" class="pt-3 px-2">
+      <tab [heading]="'Content' | localize" class="pt-3 px-2" *ngIf="page.pageType != 0">
         <ckeditor [(ngModel)]="page.content" [editor]="editor" name="editorContent">
         </ckeditor>
       </tab>
@@ -71,8 +70,7 @@
             <div class="btn-group action-main" dropdown>
               <button id="button-add-widget" dropdownToggle type="button" class="btn btn-success dropdown-toggle"
                 aria-controls="dropdown-add-widget">
-                <i class="fas fa-plus"></i>
-                {{ addWidgetLable  | localize }} <span class="caret"></span>
+                <i class="fas fa-plus"></i><span class="caret"></span>
               </button>
 
               <ul id="dropdown-add-widget" *dropdownMenu class="dropdown-menu" role="menu"
@@ -90,28 +88,25 @@
 
             <ng-template #itemTemplate let-item="item" let-index="index">
 
-              <div class="mb-1">
+              <div class="mb-1 widget-item {{getWidgetWidth(item.value.sizeType)}}">
 
-                <div class="btn btn-info mb-1 text-left {{getWidgetWidth(item.value.sizeType)}}">
+                <div class="btn btn-info text-left w-100 d-flex justify-content-between">
+                  <div>
+                    <i class="fas fa-arrows-alt"></i>
 
-                  <i class="fas fa-arrows-alt"></i>
+                    <button type="button" class="btn btn-secondary expand-collapse"
+                      (click)="item.value.isCollapsed = !item.value.isCollapsed"
+                      [attr.aria-expanded]="!item.value.isCollapsed" aria-controls="collapseBasic">
+                      <i class="fas fa-chevron-right" *ngIf="!item.value.isCollapsed"></i>
+                      <i class="fas fa-chevron-down" *ngIf="item.value.isCollapsed"></i>
+                    </button>
 
-                  <button type="button" class="btn btn-secondary expand-collapse"
-                    (click)="item.value.isCollapsed = !item.value.isCollapsed"
-                    [attr.aria-expanded]="!item.value.isCollapsed" aria-controls="collapseBasic">
-                    <i class="fas fa-chevron-right" *ngIf="!item.value.isCollapsed"></i>
-                    <i class="fas fa-chevron-down" *ngIf="item.value.isCollapsed"></i>
-                  </button>
-
-                  {{widgetName(item.value.widgetType)}}
-
-                </div>
-
-                <div [collapse]="!item.value.isCollapsed">
-                  <div class="top-action mb-1 ">
+                    {{widgetName(item.value.widgetType)}}
+                  </div>
+                  <div class="top-action m-1">
 
                     <div class="btn-group" dropdown>
-                      <button id="button-position" dropdownToggle type="button"
+                      <button name="button-position" dropdownToggle type="button"
                         class="btn btn-success dropdown-toggle btn-sm" aria-controls="dropdown-position">
                         <i class="fas fa-align-left" *ngIf="item.value.position == 0"></i>
                         <i class="fas fa-align-center" *ngIf="item.value.position == 1"></i>
@@ -120,7 +115,7 @@
                         <span class="caret"></span>
                       </button>
 
-                      <ul id="dropdown-position" *dropdownMenu class="dropdown-menu" role="menu"
+                      <ul name="dropdown-position" *dropdownMenu class="dropdown-menu" role="menu"
                         aria-labelledby="button-position">
                         <li role="menuitem" *ngFor="let position of positions; let i = index">
                           <a class="dropdown-item"
@@ -129,7 +124,7 @@
                     </div>
 
                     <div class="btn-group ml-1" dropdown>
-                      <button id="button-size" dropdownToggle type="button"
+                      <button name="button-size" dropdownToggle type="button"
                         class="btn btn-success dropdown-toggle btn-sm" aria-controls="dropdown-size">
                         <i *ngIf="item.value.sizeType == 0">25</i>
                         <i *ngIf="item.value.sizeType == 1">33</i>
@@ -140,21 +135,27 @@
                         <span class="caret"></span>
                       </button>
 
-                      <ul id="dropdown-size" *dropdownMenu class="dropdown-menu" role="menu"
+                      <ul name="dropdown-size" *dropdownMenu class="dropdown-menu" role="menu"
                         aria-labelledby="button-size">
                         <li role="menuitem" *ngFor="let size of sizeTypes; let i = index">
                           <a class="dropdown-item" (click)="setSize(size,item.value)">{{ size.name}} %</a></li>
                       </ul>
                     </div>
 
+                    <div class="btn-group ml-1" button (click)="deleteWidget(item.value.id)">
+                      <button name="button-delete" type="button" class="btn btn-danger">
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                    </div>
+
+
                     <div *ngIf="item.value.widgetType == 0" class="btn-group ml-1" dropdown>
-                      <button id="button-container" dropdownToggle type="button" class="btn btn-success dropdown-toggle"
-                        aria-controls="dropdown-container">
-                        <i class="fas fa-plus"></i>
-                        {{ addWidgetLable  | localize }} <span class="caret"></span>
+                      <button name="button-container" dropdownToggle type="button"
+                        class="btn btn-success dropdown-toggle" aria-controls="dropdown-container">
+                        <i class="fas fa-plus"></i><span class="caret"></span>
                       </button>
 
-                      <ul id="dropdown-container" *dropdownMenu class="dropdown-menu" role="menu"
+                      <ul name="dropdown-container" *dropdownMenu class="dropdown-menu" role="menu"
                         aria-labelledby="button-container">
                         <li role="menuitem" *ngFor="let type of widgetTypes; let i = index"><a class="dropdown-item"
                             (click)="addWidget(type.id, item.value.id)">{{ type.name | localize}}</a></li>
@@ -163,28 +164,31 @@
 
                   </div>
 
-                  <textarea *ngIf="item.value.widgetType == 1" [(ngModel)]="item.value.content"
+                </div>
+
+                <div [collapse]="!item.value.isCollapsed">
+
+
+                  <textarea cols="5" class="w-100" *ngIf="item.value.widgetType == 1" [(ngModel)]="item.value.content"
                     name="htmlWidget"></textarea>
 
                   <ckeditor *ngIf="item.value.widgetType == 3" [(ngModel)]="item.value.content" [editor]="widgetEditor"
-                    name="widgetContent">
+                    name="widgetContent-{{item.value.id}}">
                   </ckeditor>
 
-                  <textarea *ngIf="item.value.widgetType == 4" [(ngModel)]="item.value.content"
+                  <textarea class="w-100" *ngIf="item.value.widgetType == 4" [(ngModel)]="item.value.content"
                     name="quoteWidget"></textarea>
 
                   <div *ngIf="item.value.widgetType == 0" class="d-flex flex-wrap">
-
-
 
                     <div *ngFor="let child of childWidgets" class="{{getWidgetWidth(child.sizeType)}}">
 
                       <div *ngIf=" child.parentId == item.value.id">
 
-                        <div class="top-action mb-1 ">
+                        <div class="top-action m-1">
 
                           <div class="btn-group" dropdown>
-                            <button id="button-child-position" dropdownToggle type="button"
+                            <button name="button-child-position" dropdownToggle type="button"
                               class="btn btn-success dropdown-toggle btn-sm" aria-controls="dropdown-child-position">
                               <i class="fas fa-align-left" *ngIf="child.position == 0"></i>
                               <i class="fas fa-align-center" *ngIf="child.position == 1"></i>
@@ -193,7 +197,7 @@
                               <span class="caret"></span>
                             </button>
 
-                            <ul id="dropdown-child-position" *dropdownMenu class="dropdown-menu" role="menu"
+                            <ul name="dropdown-child-position" *dropdownMenu class="dropdown-menu" role="menu"
                               aria-labelledby="button-child-position">
                               <li role="menuitem" *ngFor="let position of positions; let i = index">
                                 <a class="dropdown-item"
@@ -202,7 +206,7 @@
                           </div>
 
                           <div class="btn-group ml-1" dropdown>
-                            <button id="button-child-size" dropdownToggle type="button"
+                            <button name="button-child-size" dropdownToggle type="button"
                               class="btn btn-success dropdown-toggle btn-sm" aria-controls="dropdown-child-size">
                               <i *ngIf="child.sizeType == 0">25</i>
                               <i *ngIf="child.sizeType == 1">33</i>
@@ -213,23 +217,29 @@
                               <span class="caret"></span>
                             </button>
 
-                            <ul id="dropdown-child-size" *dropdownMenu class="dropdown-menu" role="menu"
+                            <ul name="dropdown-child-size" *dropdownMenu class="dropdown-menu" role="menu"
                               aria-labelledby="button-child-size">
                               <li role="menuitem" *ngFor="let size of sizeTypes; let i = index">
                                 <a class="dropdown-item" (click)="setSize(size,child)">{{ size.name}} %</a></li>
                             </ul>
                           </div>
 
+                          <div class="btn-group ml-1" button (click)="deleteWidget(child.id)">
+                            <button name="button-delete" type="button" class="btn btn-danger">
+                              <i class="far fa-trash-alt"></i>
+                            </button>
+                          </div>
+
                         </div>
 
-                        <textarea *ngIf="child.widgetType == 1" [(ngModel)]="child.content"
+                        <textarea cols="5" class="w-100" *ngIf="child.widgetType == 1" [(ngModel)]="child.content"
                           name="htmlChildWidget"></textarea>
 
                         <ckeditor *ngIf="child.widgetType == 3" [(ngModel)]="child.content" [editor]="widgetEditor"
-                          name="widgetChildContent">
+                          name="widgetChildContent{{child.id}}">
                         </ckeditor>
 
-                        <textarea *ngIf="child.widgetType == 4" [(ngModel)]="child.content"
+                        <textarea class="w-100" *ngIf="child.widgetType == 4" [(ngModel)]="child.content"
                           name="quoteChildWidget"></textarea>
 
                       </div>

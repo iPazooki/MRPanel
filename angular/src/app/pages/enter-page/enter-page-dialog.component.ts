@@ -10,14 +10,13 @@ import { AppComponentBase } from "@shared/app-component-base";
 import { finalize } from "rxjs/operators";
 import { BsModalRef } from "ngx-bootstrap/modal";
 import { filter as _filter } from "lodash-es";
+import { remove as _remove } from "lodash-es";
 import {
   PageServiceProxy,
   PageDto,
   WidgetServiceProxy,
   WidgetDto,
   WidgetType,
-  Position,
-  SizeType,
 } from "@shared/service-proxies/service-proxies";
 
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -51,7 +50,6 @@ export class EnterPageDialogComponent
 
   // Drop-down labels
   pageTypeName: string;
-  addWidgetLable: string;
   positionLable: string;
   size: number;
 
@@ -84,7 +82,6 @@ export class EnterPageDialogComponent
 
   ngOnInit(): void {
     this.pageTypeName = "PleaseSelect";
-    this.addWidgetLable = "PleaseSelect";
     this.positionLable = "PleaseSelect";
 
     if (this.id != undefined) {
@@ -99,6 +96,9 @@ export class EnterPageDialogComponent
             this.updateWidgets();
           });
       });
+    } else {
+      this.page.pageType = AppPageType.Page;
+      this.pageTypeName = "Page";
     }
   }
 
@@ -162,6 +162,14 @@ export class EnterPageDialogComponent
     }
   }
 
+  deleteWidget(widgetId: string) {
+    _remove(this.allWidgets, (item: WidgetDto) => {
+      return item.id == widgetId;
+    });
+    this.notify.info(this.l("SuccessfullyDeleted"));
+    this.updateWidgets();
+  }
+
   selectPageType(type: AppPageType) {
     switch (type) {
       case AppPageType.Page: {
@@ -190,17 +198,20 @@ export class EnterPageDialogComponent
       widgetType: type,
       content: "",
       imageAddress: "",
-      sizeType: SizeType._1,
+      sizeType: AppSizeType[100],
       order: 1,
-      position: Position._0,
+      position: AppPosition.Left,
       pageId: this.id,
       parentId: parentId,
       id: null,
     });
 
-    this.allWidgets.push(widget);
+    this._widgetService.save(widget).subscribe((widgetId: string) => {
+      widget.id = widgetId;
+      this.allWidgets.push(widget);
 
-    this.updateWidgets();
+      this.updateWidgets();
+    });
   }
 
   widgetName(widgetIndex: WidgetType) {

@@ -1,0 +1,93 @@
+<div [@routerTransition]>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1>{{ "SiteSetting" | localize }}</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content px-2">
+        <div class="container-fluid">
+
+            <form class="form-horizontal col-5" autocomplete="off" #editSiteSetting="ngForm" (ngSubmit)="save()">
+
+                <div class="form-group row required">
+                    <label class="col-md-3 col-form-label" for="siteName">
+                        {{ "SiteName" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="siteName" id="siteName" required
+                            [(ngModel)]="siteSetting.siteName" #siteNameModel="ngModel" #siteNameEl />
+                        <abp-validation-summary [control]="siteNameModel" [controlEl]="siteNameEl">
+                        </abp-validation-summary>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="slogan">
+                        {{ "Slogan" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="slogan" id="slogan"
+                            [(ngModel)]="siteSetting.slogan" #sloganModel="ngModel" #sloganEl />
+                        <abp-validation-summary [control]="sloganModel" [controlEl]="sloganEl">
+                        </abp-validation-summary>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="facebookUrl">
+                        {{ "FacebookUrl" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="facebookUrl" id="facebookUrl"
+                            [(ngModel)]="siteSetting.facebookUrl" #facebookUrlModel="ngModel" #facebookUrlEl />
+                        <abp-validation-summary [control]="facebookUrlModel" [controlEl]="facebookUrlEl">
+                        </abp-validation-summary>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="twitterUrl">
+                        {{ "TwitterUrl" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="twitterUrl" id="twitterUrl"
+                            [(ngModel)]="siteSetting.twitterUrl" #twitterUrlModel="ngModel" #twitterUrlEl />
+                        <abp-validation-summary [control]="twitterUrlModel" [controlEl]="twitterUrlEl">
+                        </abp-validation-summary>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="instagramUrl">
+                        {{ "InstagramUrl" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="instagramUrl" id="instagramUrl"
+                            [(ngModel)]="siteSetting.instagramUrl" #instagramUrlModel="ngModel" #instagramUrlEl />
+                        <abp-validation-summary [control]="instagramUrlModel" [controlEl]="instagramUrlEl">
+                        </abp-validation-summary>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="githubUrl">
+                        {{ "GithubUrl" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="githubUrl" id="githubUrl"
+                            [(ngModel)]="siteSetting.githubUrl" #githubUrlModel="ngModel" #githubUrlEl />
+                        <abp-validation-summary [control]="githubUrlModel" [controlEl]="githubUrlEl">
+                        </abp-validation-summary>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-success" (click)="save()"
+                    [disabled]="!editSiteSetting.form.valid || saving">Save</button>
+            </form>
+        </div>
+    </section>
+</div>

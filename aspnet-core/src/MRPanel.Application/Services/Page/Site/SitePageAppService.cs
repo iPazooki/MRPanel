@@ -20,13 +20,6 @@ namespace MRPanel.Services
             _widgetRepository = widgetRepository;
         }
 
-        public async Task<IEnumerable<SitePageDto>> GetAll()
-        {
-            var items = await _pageRepository.GetAllListAsync();
-
-            return _objectMapper.Map<List<SitePageDto>>(items);
-        }
-
         public async Task<IEnumerable<SitePageDto>> GetAllByPageType(PageType pageType)
         {
             var items = await _pageRepository.GetAllListAsync(x => x.PageType == pageType && x.IsHomePage == false);
@@ -40,7 +33,7 @@ namespace MRPanel.Services
 
             var sitePageDto = _objectMapper.Map<SitePageDto>(page);
 
-            var widgets = _widgetRepository.GetAllListAsync(x => x.PageId == page.Id);
+            var widgets = await _widgetRepository.GetAllListAsync(x => x.PageId == page.Id);
 
             sitePageDto.Widgets = _objectMapper.Map<List<WidgetDto>>(widgets);
 

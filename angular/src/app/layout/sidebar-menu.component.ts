@@ -1,25 +1,25 @@
-import { Component, Injector, OnInit } from '@angular/core';
-import { AppComponentBase } from '@shared/app-component-base';
+import { Component, Injector, OnInit } from "@angular/core";
+import { AppComponentBase } from "@shared/app-component-base";
 import {
   Router,
   RouterEvent,
   NavigationEnd,
-  PRIMARY_OUTLET
-} from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { MenuItem } from '@shared/layout/menu-item';
+  PRIMARY_OUTLET,
+} from "@angular/router";
+import { BehaviorSubject } from "rxjs";
+import { filter } from "rxjs/operators";
+import { MenuItem } from "@shared/layout/menu-item";
 
 @Component({
-  selector: 'sidebar-menu',
-  templateUrl: './sidebar-menu.component.html'
+  selector: "sidebar-menu",
+  templateUrl: "./sidebar-menu.component.html",
 })
 export class SidebarMenuComponent extends AppComponentBase implements OnInit {
   menuItems: MenuItem[];
   menuItemsMap: { [key: number]: MenuItem } = {};
   activatedMenuItems: MenuItem[] = [];
   routerEvents: BehaviorSubject<RouterEvent> = new BehaviorSubject(undefined);
-  homeRoute = '/app/home';
+  homeRoute = "/app/home";
 
   constructor(injector: Injector, private router: Router) {
     super(injector);
@@ -32,42 +32,48 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
     this.routerEvents
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {
-        const currentUrl = event.url !== '/' ? event.url : this.homeRoute;
+        const currentUrl = event.url !== "/" ? event.url : this.homeRoute;
         const primaryUrlSegmentGroup = this.router.parseUrl(currentUrl).root
           .children[PRIMARY_OUTLET];
         if (primaryUrlSegmentGroup) {
-          this.activateMenuItems('/' + primaryUrlSegmentGroup.toString());
+          this.activateMenuItems("/" + primaryUrlSegmentGroup.toString());
         }
       });
   }
 
   getMenuItems(): MenuItem[] {
     return [
-      new MenuItem(this.l('HomePage'), '/app/home', 'fas fa-home'),
+      new MenuItem(this.l("HomePage"), "/app/home", "fas fa-home"),
       new MenuItem(
-        this.l('Users'),
-        '/app/users',
-        'fas fa-users',
-        'Pages.Users'
+        this.l("Pages"),
+        "/app/pages",
+        "fas fa-file-word",
+        "Pages.Pages"
       ),
       new MenuItem(
-        this.l('Pages'),
-        '/app/pages',
-        'fas fa-file-word',
-        'Pages.Pages'
+        this.l("Users"),
+        "/app/users",
+        "fas fa-users",
+        "Pages.Users"
       ),
       new MenuItem(
-        this.l('Roles'),
-        '/app/roles',
-        'fas fa-theater-masks',
-        'Pages.Roles'
-      )
+        this.l("Roles"),
+        "/app/roles",
+        "fas fa-theater-masks",
+        "Pages.Roles"
+      ),
+      new MenuItem(
+        this.l("SiteSetting"),
+        "/app/site-setting",
+        "fas fa-cog",
+        "Pages.SiteSetting"
+      ),
     ];
   }
 
   patchMenuItems(items: MenuItem[], parentId?: number): void {
     items.forEach((item: MenuItem, index: number) => {
-      item.id = parentId ? Number(parentId + '' + (index + 1)) : index + 1;
+      item.id = parentId ? Number(parentId + "" + (index + 1)) : index + 1;
       if (parentId) {
         item.parentId = parentId;
       }

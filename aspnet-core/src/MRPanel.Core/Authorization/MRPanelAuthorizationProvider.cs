@@ -12,6 +12,7 @@ namespace MRPanel.Authorization
             context.CreatePermission(PermissionNames.Pages_Roles, L("Roles"));
             context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
             context.CreatePermission(PermissionNames.Pages_Pages, L("Pages"));
+            context.CreatePermission(PermissionNames.Pages_SiteSetting, L("SiteSetting"));
         }
 
         private static ILocalizableString L(string name)

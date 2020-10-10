@@ -16,5 +16,7 @@ namespace MRPanel.Services
         Task<WidgetDto> Get(Guid id);
 
         Task SaveList(Guid pageId, List<WidgetDto> widgetDtos);
+
+        Task Delete(Guid widgetId);
     }
 }

@@ -16,10 +16,6 @@ import { SharedModule } from "@shared/shared.module";
 import { HomeComponent } from "@app/home/home.component";
 import { AboutComponent } from "@app/about/about.component";
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
-// tenants
-import { TenantsComponent } from "@app/tenants/tenants.component";
-import { CreateTenantDialogComponent } from "./tenants/create-tenant/create-tenant-dialog.component";
-import { EditTenantDialogComponent } from "./tenants/edit-tenant/edit-tenant-dialog.component";
 // roles
 import { RolesComponent } from "@app/roles/roles.component";
 import { CreateRoleDialogComponent } from "./roles/create-role/create-role-dialog.component";
@@ -43,16 +39,13 @@ import { SidebarMenuComponent } from "./layout/sidebar-menu.component";
 // pages
 import { PagesComponent } from "./pages/pages.component";
 import { EnterPageDialogComponent } from "./pages/enter-page/enter-page-dialog.component";
+import { SiteSettingComponent } from "./site-setting/site-setting.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
-    // tenants
-    TenantsComponent,
-    CreateTenantDialogComponent,
-    EditTenantDialogComponent,
     // roles
     RolesComponent,
     CreateRoleDialogComponent,
@@ -76,6 +69,7 @@ import { EnterPageDialogComponent } from "./pages/enter-page/enter-page-dialog.c
     // pages
     PagesComponent,
     EnterPageDialogComponent,
+    SiteSettingComponent,
   ],
   imports: [
     CommonModule,
@@ -96,9 +90,6 @@ import { EnterPageDialogComponent } from "./pages/enter-page/enter-page-dialog.c
   ],
   providers: [],
   entryComponents: [
-    // tenants
-    CreateTenantDialogComponent,
-    EditTenantDialogComponent,
     // roles
     CreateRoleDialogComponent,
     EditRoleDialogComponent,
@@ -106,6 +97,8 @@ import { EnterPageDialogComponent } from "./pages/enter-page/enter-page-dialog.c
     CreateUserDialogComponent,
     EditUserDialogComponent,
     ResetPasswordDialogComponent,
+    // pages
+    EnterPageDialogComponent,
   ],
 })
 export class AppModule {}

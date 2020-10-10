@@ -1561,6 +1561,43 @@ namespace MRPanel.Migrations
                     b.ToTable("Pages");
                 });
 
+            modelBuilder.Entity("MRPanel.Domain.SiteSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FacebookUrl")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("GithubUrl")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("InstagramUrl")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("SiteName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Slogan")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("TwitterUrl")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SiteSettings");
+                });
+
             modelBuilder.Entity("MRPanel.Domain.Widget", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1582,17 +1619,14 @@ namespace MRPanel.Migrations
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Position")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
 
-                    b.Property<string>("SizeType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("SizeType")
+                        .HasColumnType("int");
 
-                    b.Property<string>("WidgetType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("WidgetType")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

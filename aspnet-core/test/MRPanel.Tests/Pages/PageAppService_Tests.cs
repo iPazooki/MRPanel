@@ -6,19 +6,16 @@ using Abp.Application.Services.Dto;
 using MRPanel.Services;
 using Abp.Timing;
 using MRPanel.Domain;
-using System.Linq;
 
 namespace MRPanel.Tests.Users
 {
     public class PageAppService_Tests : MRPanelTestBase
     {
         private readonly IPageAppService _pageAppService;
-        private readonly ISitePageAppService _sitePageAppService;
 
         public PageAppService_Tests()
         {
             _pageAppService = Resolve<IPageAppService>();
-            _sitePageAppService = Resolve<ISitePageAppService>();
         }
 
         [Fact]
@@ -37,16 +34,6 @@ namespace MRPanel.Tests.Users
 
             // Assert
             output.Items.Count.ShouldBeGreaterThan(0);
-        }
-
-        [Fact]
-        public async Task GetSitePages_Test()
-        {
-            // Act
-            var output = await _sitePageAppService.GetAllByPageType(Domain.PageType.Page);
-
-            // Assert
-            output.ShouldBeEmpty();
         }
 
         [Fact]
@@ -71,31 +58,6 @@ namespace MRPanel.Tests.Users
                 var page = await context.Pages.FirstOrDefaultAsync(x => x.IsHomePage == false);
 
                 page.ShouldNotBeNull();
-            });
-        }
-
-        [Fact]
-        public async Task Create_Home_Page_Test()
-        {
-            // Act
-            var page = new PageDto
-            {
-                Title = "Lorem Ipsum is simply dummy text of the printing and typesetting",
-                CreationTime = Clock.Now,
-                PageType = Domain.PageType.Page,
-                IsDeleted = false,
-                IsHomePage = true
-            };
-
-            await CreatePage(page);
-
-            // Assert
-
-            await UsingDbContextAsync(async context =>
-            {
-                var result = await context.Pages.SingleOrDefaultAsync(x => x.IsHomePage);
-
-                result.ShouldNotBeNull();
             });
         }
 
