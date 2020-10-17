@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="fa">
   <texts>
+    <text name="Parent" value="پدر" />
+    <text name="IsExternal" value="آدرس به صفحه خارجی" />
+    <text name="EditMenu" value="ویرایش منو" />
+    <text name="URL" value="آدرس" />
+    <text name="Menu" value="منو" />
     <text name="GithubUrl" value="گیت هاب" />
     <text name="InstagramUrl" value="اینستگرام" />
     <text name="TwitterUrl" value="توییتر" />

@@ -11,5 +11,7 @@
         public const string Pages_Pages = "Pages.Pages";
 
         public const string Pages_SiteSetting = "Pages.SiteSetting";
+
+        public const string Pages_Menu = "Pages.Menus";
     }
 }

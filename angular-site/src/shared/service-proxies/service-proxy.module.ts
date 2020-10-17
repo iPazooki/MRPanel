@@ -8,6 +8,7 @@ import * as ApiServiceProxies from "./service-proxies";
   providers: [
     ApiServiceProxies.SitePageServiceProxy,
     ApiServiceProxies.WebSiteSettingServiceProxy,
+    ApiServiceProxies.SiteMenuServiceProxy,
     { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true },
   ],
 })

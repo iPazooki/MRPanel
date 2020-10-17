@@ -42,16 +42,14 @@ namespace MRPanel.Tests.Users
             {
                 Title = "Lorem Ipsum is simply dummy text of the printing and typesetting",
                 CreationTime = Clock.Now,
-                PageType = Domain.PageType.Page,
-                IsDeleted = false,
-                IsHomePage = true
+                PageType = Domain.PageType.Page
             };
 
             var resultPage = await CreatePage(pageDto);
 
             var widgetDto = new WidgetDto
             {
-                Content = "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+                Content = "Hello",
                 WidgetType = WidgetType.Paragraph,
                 PageId = resultPage.Id,
                 ParentId = null,
@@ -60,10 +58,14 @@ namespace MRPanel.Tests.Users
                 Order = 1
             };
 
-            var result = await _widgetAppService.Save(widgetDto);
+            var widgetId = await _widgetAppService.Save(widgetDto);
+
+            var widget = await _widgetAppService.Get(widgetId);
 
             // Assert
-            result.ShouldNotBeNull();
+            widget.ShouldNotBeNull();
+            widget.Content.ShouldBe("Hello");
+            widget.PageId.ShouldBe(resultPage.Id);
         }
 
         [Fact]
@@ -129,13 +131,16 @@ namespace MRPanel.Tests.Users
 
             var parentWidget = new WidgetDto
             {
-                Id = Guid.NewGuid(),
                 WidgetType = WidgetType.Container,
                 PageId = resultPage.Id,
                 ParentId = null,
                 Position = Position.Right,
                 SizeType = SizeType._50
             };
+
+            var parentWidgetId = await _widgetAppService.Save(parentWidget);
+
+            parentWidget = await _widgetAppService.Get(parentWidgetId);
 
             var widgets = new List<WidgetDto> {
                     parentWidget,
@@ -250,13 +255,16 @@ namespace MRPanel.Tests.Users
 
             var parentWidget = new WidgetDto
             {
-                Id = Guid.NewGuid(),
                 WidgetType = WidgetType.Container,
                 PageId = resultPage.Id,
                 ParentId = null,
                 Position = Position.Right,
                 SizeType = SizeType._50
             };
+
+            var parentWidgetId = await _widgetAppService.Save(parentWidget);
+
+            parentWidget = await _widgetAppService.Get(parentWidgetId);
 
             var widgets = new List<WidgetDto> {
                     parentWidget,

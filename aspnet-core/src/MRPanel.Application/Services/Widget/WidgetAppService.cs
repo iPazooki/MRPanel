@@ -56,24 +56,11 @@ namespace MRPanel.Services
         {
             var widgetObj = _objectMapper.Map<Widget>(widget);
 
-            widgetObj.Page = await _pageRepository.GetAsync(widget.PageId);
-
-            if (widgetObj.WidgetType == Domain.Enum.WidgetType.Container)
-            {
-                var widgetParent = await _widgetRepository.FirstOrDefaultAsync(x => x.Id == widgetObj.Id);
-                if (widgetParent == null)
-                {
-                    return await _widgetRepository.InsertAndGetIdAsync(widgetObj);
-                }
-            }
-
             return await _widgetRepository.InsertOrUpdateAndGetIdAsync(widgetObj);
         }
 
         public async Task SaveList(Guid pageId, List<WidgetDto> widgetDtos)
         {
-            await _widgetRepository.DeleteAsync(x => x.PageId == pageId);
-
             foreach (var widgetDto in widgetDtos)
             {
                 widgetDto.PageId = pageId;

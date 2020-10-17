@@ -10,5 +10,7 @@ namespace MRPanel.Services
         Task<IEnumerable<SitePageDto>> GetAllByPageType(PageType pageType);
 
         Task<SitePageDto> GetHomePage();
+
+        Task<SitePageDto> GetPageByUrl(string url);
     }
 }

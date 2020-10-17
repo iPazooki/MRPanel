@@ -9,6 +9,7 @@ import { RolesComponent } from "app/roles/roles.component";
 import { ChangePasswordComponent } from "./users/change-password/change-password.component";
 import { PagesComponent } from "app/pages/pages.component";
 import { SiteSettingComponent } from "app/site-setting/site-setting.component";
+import { SiteMenuComponent } from "./site-menu/site-menu.component";
 
 @NgModule({
   imports: [
@@ -44,6 +45,12 @@ import { SiteSettingComponent } from "app/site-setting/site-setting.component";
             path: "site-setting",
             component: SiteSettingComponent,
             data: { permission: "Pages.SiteSetting" },
+            canActivate: [AppRouteGuard],
+          },
+          {
+            path: "site-menu",
+            component: SiteMenuComponent,
+            data: { permission: "Pages.Menus" },
             canActivate: [AppRouteGuard],
           },
           { path: "about", component: AboutComponent },

@@ -1,12 +1,12 @@
 ﻿using Abp.Application.Services;
-using System;
+using MRPanel.Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MRPanel.Services
 {
-    public interface IPageAppService : IAsyncCrudAppService<PageDto, Guid>
+    public interface ISiteMenuAppService : IApplicationService
     {
-        Task<IEnumerable<PageDto>> GetAllPages();
+        Task<IEnumerable<SiteMenuDto>> GetAll();
     }
 }

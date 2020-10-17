@@ -40,6 +40,8 @@ import { SidebarMenuComponent } from "./layout/sidebar-menu.component";
 import { PagesComponent } from "./pages/pages.component";
 import { EnterPageDialogComponent } from "./pages/enter-page/enter-page-dialog.component";
 import { SiteSettingComponent } from "./site-setting/site-setting.component";
+import { SiteMenuComponent } from './site-menu/site-menu.component';
+import { EnterMenuDialogComponent } from './site-menu/enter-menu/enter-menu-dialog.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,8 @@ import { SiteSettingComponent } from "./site-setting/site-setting.component";
     PagesComponent,
     EnterPageDialogComponent,
     SiteSettingComponent,
+    SiteMenuComponent,
+    EnterMenuDialogComponent,
   ],
   imports: [
     CommonModule,

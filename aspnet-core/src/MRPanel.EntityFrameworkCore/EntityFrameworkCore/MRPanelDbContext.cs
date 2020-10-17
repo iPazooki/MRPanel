@@ -17,6 +17,8 @@ namespace MRPanel.EntityFrameworkCore
 
         public DbSet<SiteSetting> SiteSettings { get; set; }
 
+        public DbSet<Menu> Menus { get; set; }
+
         public MRPanelDbContext(DbContextOptions<MRPanelDbContext> options)
             : base(options)
         {

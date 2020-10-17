@@ -1,0 +1,74 @@
+<form class="form-horizontal" autocomplete="off" #editMenuForm="ngForm" (ngSubmit)="save()">
+    <abp-modal-header [title]="'EditMenu' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body">
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="title">
+                {{ "Title" | localize }}
+            </label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" name="title" id="title" required minlength="2" maxlength="32"
+                    [(ngModel)]="menu.title" #titleModel="ngModel" #titleEl />
+                <abp-validation-summary [control]="titleModel" [controlEl]="titleEl"></abp-validation-summary>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">
+                {{ "IsExternal" | localize }}
+            </label>
+            <div class="col-md-9">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="isExternal" id="isExternal"
+                        [(ngModel)]="menu.isExternal" />
+                    <label class="custom-control-label mt-2" for="isExternal"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="url">
+                {{ "URL" | localize }}
+            </label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" name="url" id="url" [(ngModel)]="menu.url" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="page">
+                {{ "Page" | localize }}
+            </label>
+
+            <div class="btn-group" dropdown>
+                <button id="button-page" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-page">
+                    {{ pageName | localize }} <span class="caret"></span>
+                </button>
+
+                <ul id="dropdown-page" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-page">
+                    <li role="menuitem" *ngFor="let page of pages; let i = index"><a class="dropdown-item"
+                            (click)="selectPage(page)">{{ page.title }}</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="menu">
+                {{ "Parent" | localize }}
+            </label>
+
+            <div class="btn-group" dropdown>
+                <button id="button-menu" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-menu">
+                    {{ parentName | localize }} <span class="caret"></span>
+                </button>
+
+                <ul id="dropdown-menu" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-menu">
+                    <li role="menuitem" *ngFor="let menu of menus; let i = index"><a class="dropdown-item"
+                            (click)="selectMenu(menu)">{{ menu.title }}</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <abp-modal-footer [cancelDisabled]="saving" [saveDisabled]="!editMenuForm.form.valid || saving"
+        (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>

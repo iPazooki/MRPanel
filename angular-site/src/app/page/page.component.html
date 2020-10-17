@@ -1,0 +1,47 @@
+<main class="profile-page">
+    <section class="section-profile-cover section-shaped my-0">
+        <!-- Circles background -->
+        <div class="shape shape-style-1 shape-primary alpha-4">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <!-- SVG separator -->
+        <div class="separator separator-bottom separator-skew">
+            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+                xmlns="http://www.w3.org/2000/svg">
+                <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+            </svg>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="row card card-profile shadow mt--500 height-600">
+                <div class="col-12">
+                    <h1>{{page?.title}}</h1>
+                </div>
+                <div class="w-100"></div>
+                <div class="justify-content-center">
+                    <div *ngFor="let widget of page?.widgets" class="{{getWidgetWidth(widget.sizeType)}}">
+
+                        <ng-container *ngIf="widget.widgetType == 1">
+                            <div [innerHTML]="widget.content"></div>
+                        </ng-container>
+
+                        <ng-container *ngIf="widget.widgetType == 3">
+                            <p [innerHTML]="widget.content"></p>
+                        </ng-container>
+
+                        <blockquote *ngIf="widget.widgetType == 4">{{widget.content}}</blockquote>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

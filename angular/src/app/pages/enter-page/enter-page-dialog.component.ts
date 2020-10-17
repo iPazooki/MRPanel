@@ -98,7 +98,7 @@ export class EnterPageDialogComponent
       });
     } else {
       this.page.pageType = AppPageType.Page;
-      this.pageTypeName = "Page";
+      // this.pageTypeName = "Page";
     }
   }
 
