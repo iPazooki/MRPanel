@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    <text name="LastUpdate" value="Last update" />
+    <text name="CreationDate" value="Creation date" />
+    <text name="Menu" value="Menu" />
+    <text name="LastPages" value="Last pages" />
     <text name="Parent" value="Parent" />
     <text name="IsExternal" value="Link to external URL" />
     <text name="EditMenu" value="Edit menu" />
     <text name="URL" value="URL" />
-    <text name="Menu" value="Menu" />
     <text name="GithubUrl" value="Github Url" />
     <text name="InstagramUrl" value="Instagram Url" />
     <text name="TwitterUrl" value="Twitter Url" />

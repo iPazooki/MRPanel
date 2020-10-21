@@ -16,6 +16,10 @@ namespace MRPanel.Domain
 
         public bool IsHomePage { get; set; }
 
+        public Menu Menu { get; set; }
+
+        public Guid? MenuId { get; set; }
+
         public ICollection<Widget> Widgets { get; set; }
     }
 }

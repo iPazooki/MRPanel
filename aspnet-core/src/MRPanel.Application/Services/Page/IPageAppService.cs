@@ -8,5 +8,7 @@ namespace MRPanel.Services
     public interface IPageAppService : IAsyncCrudAppService<PageDto, Guid>
     {
         Task<IEnumerable<PageDto>> GetAllPages();
+
+        Task<IEnumerable<TopPageDto>> GetAllTopPages(int take = 10);
     }
 }

@@ -14,11 +14,16 @@ namespace MRPanel.EntityFrameworkCore.Mappings
             builder.Property(x => x.IsExternal)
                 .HasDefaultValue<bool>(false);
 
-            builder.HasOne(x => x.Page);
+            builder.HasOne(x => x.Page)
+                .WithOne(x => x.Menu)
+                .HasForeignKey<Menu>(x => x.PageId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .IsRequired(false);
 
             builder.HasOne(x => x.Parent)
                 .WithMany(x => x.Menus)
-                .HasForeignKey(x => x.ParentId);
+                .HasForeignKey(x => x.ParentId)
+                .IsRequired(false);
         }
     }
 }

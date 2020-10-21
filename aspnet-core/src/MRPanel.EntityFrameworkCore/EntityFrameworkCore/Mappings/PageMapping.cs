@@ -21,6 +21,12 @@ namespace MRPanel.EntityFrameworkCore.Mappings
             builder.HasMany(x => x.Widgets)
                 .WithOne(s => s.Page)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(x => x.Menu)
+                .WithOne(x => x.Page)
+                .HasForeignKey<Page>(x => x.MenuId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .IsRequired(false);
         }
     }
 }

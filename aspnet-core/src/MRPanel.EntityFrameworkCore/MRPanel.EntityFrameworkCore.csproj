@@ -17,6 +17,14 @@
     <Compile Remove="Migrations\20201006101030_Widget_Delete.Designer.cs" />
     <Compile Remove="Migrations\20201006161619_Cascade_Widget_Mapping.cs" />
     <Compile Remove="Migrations\20201006161619_Cascade_Widget_Mapping.Designer.cs" />
+    <Compile Remove="Migrations\20201017071623_Change_Page_Menu.cs" />
+    <Compile Remove="Migrations\20201017071623_Change_Page_Menu.Designer.cs" />
+    <Compile Remove="Migrations\20201017073334_Change_Page_Menu.cs" />
+    <Compile Remove="Migrations\20201017073334_Change_Page_Menu.Designer.cs" />
+    <Compile Remove="Migrations\20201018063921_Alter_Page_Menu.cs" />
+    <Compile Remove="Migrations\20201018063921_Alter_Page_Menu.Designer.cs" />
+    <Compile Remove="Migrations\20201018084257_Change_Page_Menu.cs" />
+    <Compile Remove="Migrations\20201018084257_Change_Page_Menu.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />

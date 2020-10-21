@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Injector, OnInit } from "@angular/core";
 import { Router, NavigationEnd, NavigationStart } from "@angular/router";
 import { Location, PopStateEvent } from "@angular/common";
 import {
@@ -6,13 +6,14 @@ import {
   SiteMenuServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 import { filter as _filter } from "lodash-es";
+import { AppComponentBase } from "../components/app-component-base";
 
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.scss"],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent extends AppComponentBase implements OnInit {
   public isCollapsed = true;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
@@ -21,10 +22,13 @@ export class NavbarComponent implements OnInit {
   childSiteMenus: SiteMenuDto[];
 
   constructor(
+    injector: Injector,
     public location: Location,
     private router: Router,
     private siteMenuService: SiteMenuServiceProxy
-  ) {}
+  ) {
+    super(injector);
+  }
 
   ngOnInit() {
     this.siteMenuService.getAll().subscribe((result: SiteMenuDto[]) => {

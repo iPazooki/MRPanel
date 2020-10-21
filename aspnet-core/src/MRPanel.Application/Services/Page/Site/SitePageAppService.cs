@@ -49,7 +49,8 @@ namespace MRPanel.Services
                 return null;
             }
 
-            await _menuRepository.EnsurePropertyLoadedAsync(menu, x => x.Page);
+            //await _menuRepository.EnsurePropertyLoadedAsync(menu, x => x.Page);
+            menu.Page = await _pageRepository.GetAsync(menu.PageId.Value);
 
             await _pageRepository.EnsureCollectionLoadedAsync(menu.Page, x => x.Widgets);
 

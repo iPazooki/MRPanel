@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="fa">
   <texts>
+    <text name="LastUpdate" value="آخرین بروزرسانی" />
+    <text name="CreationDate" value="تاریخ ایجاد" />
+    <text name="LastPages" value="آخرین صفحه ها" />
     <text name="Parent" value="پدر" />
     <text name="IsExternal" value="آدرس به صفحه خارجی" />
     <text name="EditMenu" value="ویرایش منو" />

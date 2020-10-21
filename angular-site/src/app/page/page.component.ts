@@ -30,6 +30,10 @@ export class PageComponent extends AppComponentBase implements OnInit {
         .getPageByUrl(urls[0].path)
         .subscribe((result: SitePageDto) => {
           this.page = result;
+
+          this.titleService.setTitle(
+            `${this.siteSetting.siteName} > ${this.page.title}`
+          );
         });
     });
   }
