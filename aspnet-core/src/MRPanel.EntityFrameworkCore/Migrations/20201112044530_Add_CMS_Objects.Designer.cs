@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MRPanel.Migrations
 {
     [DbContext(typeof(MRPanelDbContext))]
-    [Migration("20201010191403_Add_Menu")]
-    partial class Add_Menu
+    [Migration("20201112044530_Add_CMS_Objects")]
+    partial class Add_CMS_Objects
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1540,8 +1540,6 @@ namespace MRPanel.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PageId");
-
                     b.HasIndex("ParentId");
 
                     b.ToTable("Menus");
@@ -1580,6 +1578,9 @@ namespace MRPanel.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<Guid?>("MenuId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("PageType")
                         .HasColumnType("int");
 
@@ -1592,6 +1593,10 @@ namespace MRPanel.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MenuId")
+                        .IsUnique()
+                        .HasFilter("[MenuId] IS NOT NULL");
 
                     b.ToTable("Pages");
                 });
@@ -1933,13 +1938,17 @@ namespace MRPanel.Migrations
 
             modelBuilder.Entity("MRPanel.Domain.Menu", b =>
                 {
-                    b.HasOne("MRPanel.Domain.Page", "Page")
-                        .WithMany()
-                        .HasForeignKey("PageId");
-
                     b.HasOne("MRPanel.Domain.Menu", "Parent")
                         .WithMany("Menus")
                         .HasForeignKey("ParentId");
+                });
+
+            modelBuilder.Entity("MRPanel.Domain.Page", b =>
+                {
+                    b.HasOne("MRPanel.Domain.Menu", "Menu")
+                        .WithOne("Page")
+                        .HasForeignKey("MRPanel.Domain.Page", "MenuId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("MRPanel.Domain.Widget", b =>
