@@ -3,8 +3,7 @@
   "version": "1.1.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --port 4300",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
+    "start": "ng serve --host 0.0.0.0 --port 4300"
   },
   "private": true,
   "dependencies": {

@@ -11,8 +11,8 @@ services:
         volumes:
             - "./Host-Logs:/app/App_Data/Logs"
 
-    mrpanel_ng:
-        image: mrpanel_ng
+    mrpanel_ng_admin:
+        image: mrpanel_ng_admin
         ports:
             - "9902:80"
             

@@ -4,7 +4,7 @@ $buildFolder = (Get-Item -Path "./" -Verbose).FullName
 $slnFolder = Join-Path $buildFolder "../"
 $outputFolder = Join-Path $buildFolder "outputs"
 $webHostFolder = Join-Path $slnFolder "src/MRPanel.Web.Host"
-$ngFolder = Join-Path $buildFolder "../../angular"
+$ngFolder = Join-Path $buildFolder "../../angular-admin"
 $ngSiteFolder = Join-Path $buildFolder "../../angular-site"
 
 ## CLEAR ######################################################################
@@ -20,7 +20,7 @@ dotnet restore
 ## PUBLISH WEB HOST PROJECT ###################################################
 
 Set-Location $webHostFolder
-dotnet publish --output (Join-Path $outputFolder "Host")
+dotnet publish --output (Join-Path $outputFolder "host")
 
 ## PUBLISH ANGULAR UI PROJECT #################################################
 
@@ -47,13 +47,13 @@ Copy-Item (Join-Path $ngSiteFolder "Dockerfile") (Join-Path $outputFolder "ng-si
 ## CREATE DOCKER IMAGES #######################################################
 
 # Host
-Set-Location (Join-Path $outputFolder "Host")
+Set-Location (Join-Path $outputFolder "host")
 
 docker rmi mrpanel_host -f
 docker build -t mrpanel_host .
 
-# Angular UI
-Set-Location (Join-Path $outputFolder "ng")
+# Angular Admin UI
+Set-Location (Join-Path $outputFolder "ng-admin")
 
 docker rmi mrpanel_ng -f
 docker build -t mrpanel_ng .
@@ -66,7 +66,9 @@ docker build -t mrpanel_ng_site .
 
 ## DOCKER COMPOSE FILES #######################################################
 
-Copy-Item (Join-Path $slnFolder "docker/ng/*.*") $outputFolder
+Copy-Item (Join-Path $slnFolder "docker/ng-admin/*.*") $outputFolder
+
+Copy-Item (Join-Path $slnFolder "docker/ng-site/*.*") $outputFolder
 
 ## FINALIZE ###################################################################
 

@@ -13,16 +13,16 @@ To run the application please follow these instructions:
 5. Run the application. It will show **swagger-ui** if it is successful:
 
 	
-![MRPanel Swagger](https://raw.githubusercontent.com/aspnetboilerplate/aspnetboilerplate/master/doc/WebSite/images/swagger-ui-module-zero-core-template.png)
+![MRPanel Swagger](https://user-images.githubusercontent.com/1321544/102716909-b1e5e400-42d6-11eb-9514-292040bd15b8.png)
 
 ## Angular Admin Panel Application
 
-1. Open a command prompt, navigate to the **angular** folder which contains the *.sln file and run the **yarn install** to restore the packages.
+1. Open a command prompt, navigate to the **angular-admin** folder which contains the *.sln file and run the **yarn install** to restore the packages.
 2. In your opened command prompt, run **npm start** or **npm run hmr** command.
 3. Once the application has compiled, you can go to [http://localhost:4200](http://localhost:4200) in your browser. Be sure that the **Web.Host** application is running at the same time. When you open the application, you will see the login page.
 4. You can now login to the application using the default credentials. The default username is **admin** and the password is **123qwe**
 
-![MRPanel Panel](https://raw.githubusercontent.com/aspnetboilerplate/aspnetboilerplate/master/doc/WebSite/images/module-zero-core-template-ui-home.png)
+![MRPanel Panel Admin](https://user-images.githubusercontent.com/1321544/102717014-83b4d400-42d7-11eb-8b7c-037c65298601.png)
 
 ## Angular Site Application
 
@@ -30,4 +30,6 @@ To run the application please follow these instructions:
 2. In your opened command prompt, run **npm start**.
 3. Once the application has compiled, you can go to [http://localhost:4300](http://localhost:4300) in your browser.
 
-*This project is still under development* - MRP
+![MRPanel Panel Site](https://user-images.githubusercontent.com/1321544/102717041-a515c000-42d7-11eb-8515-491276fab7aa.png)
+
+*This project is still under development, I would appreciate any contribution.* - MRP

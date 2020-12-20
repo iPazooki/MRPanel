@@ -16,6 +16,7 @@
             new HostRoleAndUserCreator(_context).Create();
             new DefaultSettingsCreator(_context).Create();
             new DefaultSiteSettingCreator(_context).Create();
+            new DefaultSiteContentCreator(_context).Create();
 
             _context.SaveChanges();
         }
