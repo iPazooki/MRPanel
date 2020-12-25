@@ -1,39 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
-    <text name="LastUpdate" value="Last update" />
-    <text name="CreationDate" value="Creation date" />
-    <text name="Menu" value="Menu" />
-    <text name="LastPages" value="Last pages" />
-    <text name="Parent" value="Parent" />
-    <text name="IsExternal" value="Link to external URL" />
-    <text name="EditMenu" value="Edit menu" />
-    <text name="URL" value="URL" />
-    <text name="GithubUrl" value="Github Url" />
-    <text name="InstagramUrl" value="Instagram Url" />
-    <text name="TwitterUrl" value="Twitter Url" />
-    <text name="FacebookUrl" value="Facebook Url" />
-    <text name="Slogan" value="Slogan" />
-    <text name="SiteName" value="Site name" />
-    <text name="SiteSetting" value="Site settings" />
-    <text name="Widget" value="Widget" />
-    <text name="IsHomePage" value="Set as home page" />
-    <text name="EditPage" value="Edit Page" />
-    <text name="PleaseSelect" value="Please Select" />
-    <text name="Page" value="Page" />
-    <text name="News" value="News" />
-    <text name="Article" value="Article" />
-    <text name="PageType" value="Page Type" />
-    <text name="Summery" value="Summery" />
-    <text name="Properties" value="Properties" />
-    <text name="Content" value="Content" />
-    <text name="Pages" value="Pages" />
     <text name="HomePage" value="Home page" />
-    <text name="Title" value="Title" />
-    <text name="Type" value="Type" />
     <text name="About" value="About" />
-    <text name="CreateNewPage" value="New page" />
-    <text name="Details" value="Detail" />
     <text name="WelcomeMessage" value="Welcome to MRPanel!" />
     <text name="FormIsNotValidMessage" value="Form is not valid. Please check and fix errors." />
     <text name="TenantNameCanNotBeEmpty" value="Tenant name can not be empty" />
@@ -147,5 +116,6 @@
     <text name="Clear">Clear</text>
     <text name="ResetPasswordStepOneInfo">1. Enter your administrator password</text>
     <text name="ResetPasswordStepTwoInfo">2. Copy this random password so you can send it to the user</text>
+    <text name="UsersActivation">Users activation</text>
   </texts>
 </localizationDictionary>

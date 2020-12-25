@@ -8,6 +8,8 @@ namespace MRPanel.EntityFrameworkCore.Mappings
     {
         public void Configure(EntityTypeBuilder<Page> builder)
         {
+            builder.ToTable($"Mrp{nameof(Page)}s");
+
             builder.Property(x => x.Title)
                 .IsRequired()
                 .HasMaxLength(MRPanelConsts.Length256);

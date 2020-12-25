@@ -8,6 +8,8 @@ namespace MRPanel.EntityFrameworkCore.Mappings
     {
         public void Configure(EntityTypeBuilder<Menu> builder)
         {
+            builder.ToTable($"Mrp{nameof(Menu)}s");
+
             builder.Property(x => x.Title)
                 .IsRequired();
 

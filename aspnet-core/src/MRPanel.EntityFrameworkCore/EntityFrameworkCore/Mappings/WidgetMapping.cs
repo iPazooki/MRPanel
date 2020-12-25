@@ -8,6 +8,8 @@ namespace MRPanel.EntityFrameworkCore.Mappings
     {
         public void Configure(EntityTypeBuilder<Widget> builder)
         {
+            builder.ToTable($"Mrp{nameof(Widget)}s");
+
             builder.Property(x => x.WidgetType)
                 .IsRequired()
                 .HasConversion<int>();
