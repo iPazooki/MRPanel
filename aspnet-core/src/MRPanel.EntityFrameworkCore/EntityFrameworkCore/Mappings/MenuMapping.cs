@@ -13,6 +13,12 @@ namespace MRPanel.EntityFrameworkCore.Mappings
             builder.Property(x => x.Title)
                 .IsRequired();
 
+            builder.Property(x => x.Description)
+                .HasMaxLength(50);
+
+            builder.Property(x => x.Icon)
+                .HasMaxLength(25);
+
             builder.Property(x => x.IsExternal)
                 .HasDefaultValue<bool>(false);
 

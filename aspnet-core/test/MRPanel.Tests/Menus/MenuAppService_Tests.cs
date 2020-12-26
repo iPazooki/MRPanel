@@ -18,7 +18,13 @@ namespace MRPanel.Tests.Menus
         public async Task CreateMenu_Test()
         {
             // Act
-            var menu = new MenuDto { Title = "Home page", Url = "www.microsoft.com" };
+            var menu = new MenuDto
+            {
+                Title = "Home page",
+                Url = "www.microsoft.com",
+                Description = "Home page description",
+                Icon = "active-40"
+            };
 
             await _menuAppService.CreateAsync(menu);
 

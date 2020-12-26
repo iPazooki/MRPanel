@@ -5,7 +5,7 @@ import {
   SiteMenuDto,
   SiteMenuServiceProxy,
 } from "@shared/service-proxies/service-proxies";
-import { filter as _filter } from "lodash-es";
+import { filter as _filter, findIndex as _findIndex } from "lodash-es";
 import { AppComponentBase } from "../components/app-component-base";
 
 @Component({
@@ -63,22 +63,9 @@ export class NavbarComponent extends AppComponentBase implements OnInit {
     });
   }
 
-  isHome() {
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-
-    if (titlee === "#/home") {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  isDocumentation() {
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-    if (titlee === "#/documentation") {
-      return true;
-    } else {
-      return false;
-    }
+  hasChild(id: string): boolean {
+    return _findIndex(this.childSiteMenus, (item: SiteMenuDto) => {
+      return item.parentId == id;
+    }) > -1;
   }
 }

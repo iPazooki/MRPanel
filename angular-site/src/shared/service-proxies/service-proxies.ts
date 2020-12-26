@@ -3603,6 +3603,8 @@ export interface IChangeUiThemeInput {
 
 export class MenuDto implements IMenuDto {
     title: string | undefined;
+    description: string | undefined;
+    icon: string | undefined;
     url: string | undefined;
     pageId: string | undefined;
     pageName: string | undefined;
@@ -3622,6 +3624,8 @@ export class MenuDto implements IMenuDto {
     init(_data?: any) {
         if (_data) {
             this.title = _data["title"];
+            this.description = _data["description"];
+            this.icon = _data["icon"];
             this.url = _data["url"];
             this.pageId = _data["pageId"];
             this.pageName = _data["pageName"];
@@ -3641,6 +3645,8 @@ export class MenuDto implements IMenuDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["title"] = this.title;
+        data["description"] = this.description;
+        data["icon"] = this.icon;
         data["url"] = this.url;
         data["pageId"] = this.pageId;
         data["pageName"] = this.pageName;
@@ -3660,6 +3666,8 @@ export class MenuDto implements IMenuDto {
 
 export interface IMenuDto {
     title: string | undefined;
+    description: string | undefined;
+    icon: string | undefined;
     url: string | undefined;
     pageId: string | undefined;
     pageName: string | undefined;
@@ -4774,6 +4782,8 @@ export interface IGetCurrentLoginInformationsOutput {
 
 export class SiteMenuDto implements ISiteMenuDto {
     title: string | undefined;
+    description: string | undefined;
+    icon: string | undefined;
     url: string | undefined;
     pageId: string | undefined;
     parentId: string | undefined;
@@ -4792,6 +4802,8 @@ export class SiteMenuDto implements ISiteMenuDto {
     init(_data?: any) {
         if (_data) {
             this.title = _data["title"];
+            this.description = _data["description"];
+            this.icon = _data["icon"];
             this.url = _data["url"];
             this.pageId = _data["pageId"];
             this.parentId = _data["parentId"];
@@ -4810,6 +4822,8 @@ export class SiteMenuDto implements ISiteMenuDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["title"] = this.title;
+        data["description"] = this.description;
+        data["icon"] = this.icon;
         data["url"] = this.url;
         data["pageId"] = this.pageId;
         data["parentId"] = this.parentId;
@@ -4828,6 +4842,8 @@ export class SiteMenuDto implements ISiteMenuDto {
 
 export interface ISiteMenuDto {
     title: string | undefined;
+    description: string | undefined;
+    icon: string | undefined;
     url: string | undefined;
     pageId: string | undefined;
     parentId: string | undefined;

@@ -111,15 +111,17 @@ namespace MRPanel.EntityFrameworkCore.Seed.Host
             var homePageMenu = new Menu
             {
                 IsExternal = false,
-                Page = homePage,
-                Title = "Home"
+                PageId = homePage.Id,
+                Title = "Home",
+                Url = "home"
             };
 
             var aboutPageMenu = new Menu
             {
                 IsExternal = false,
-                Page = aboutPage,
-                Title = "About us"
+                PageId = aboutPage.Id,
+                Title = "About us",
+                Url = "about-us"
             };
 
             var subMenus = new Menu
@@ -133,6 +135,8 @@ namespace MRPanel.EntityFrameworkCore.Seed.Host
                 IsExternal = true,
                 Parent = subMenus,
                 Title = "Sub Menus-1",
+                Description = "Quisque rutrum. Aenean imperdiet",
+                Icon = "ni ni-planet",
                 Url = "https://github.com/iPazooki"
             };
 
@@ -141,6 +145,8 @@ namespace MRPanel.EntityFrameworkCore.Seed.Host
                 IsExternal = true,
                 Parent = subMenus,
                 Title = "Sub Menus-2",
+                Description = "Aenean leo ligula, porttitor",
+                Icon = "ni ni-spaceship",
                 Url = "https://www.linkedin.com/in/pazooki/"
             };
 

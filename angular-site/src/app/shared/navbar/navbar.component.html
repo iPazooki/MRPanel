@@ -43,26 +43,28 @@
             </a>
           </ng-container>
 
-          <ng-container *ngFor="let childMenu of childSiteMenus">
-            <div class="dropdown-menu-xl dropdown-menu" *ngIf="childMenu.parentId == parentMenu.id">
-              <div class="dropdown-menu-inner">
-                <a routerLinkActive="active" class="media d-flex align-items-center" [routerLink]="[childMenu.url]">
-                  <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
-                    <i class="ni ni-spaceship"></i>
-                  </div>
-                  <div class="media-body ml-3">
-                    <h6 class="heading text-primary mb-md-1">{{childMenu.title}}</h6>
-                    <p class="description d-none d-md-inline-block mb-0">توضیحات مختصری از این منو، و توضیحات کامل تر
-                    </p>
-                  </div>
-                </a>
-              </div>
+          <ng-container *ngIf="hasChild(parentMenu.id)">
+
+            <div class="dropdown-menu-xl dropdown-menu">
+              <ng-container *ngFor="let childMenu of childSiteMenus">
+                <div class="dropdown-menu-inner" *ngIf="childMenu.parentId == parentMenu.id">
+                  <a routerLinkActive="active" class="media d-flex align-items-center" [routerLink]="[childMenu.url]">
+                    <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
+                      <i class="{{childMenu.icon}}"></i>
+                    </div>
+                    <div class="media-body ml-3">
+                      <h6 class="heading text-primary mb-md-1">{{childMenu.title}}</h6>
+                      <p class="description d-none d-md-inline-block mb-0">{{childMenu.description}}
+                      </p>
+                    </div>
+                  </a>
+                </div>
+              </ng-container>
             </div>
           </ng-container>
 
         </li>
       </ul>
-
 
       <ul class="navbar-nav align-items-lg-center ml-lg-auto">
         <li class="nav-item">
