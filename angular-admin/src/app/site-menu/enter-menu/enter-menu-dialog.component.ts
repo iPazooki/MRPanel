@@ -67,11 +67,14 @@ export class EnterMenuDialogComponent
               this.parentName = parentResult.title;
             });
         }
-        this._pageService
-          .get(result.pageId)
-          .subscribe((pageResult: PageDto) => {
-            this.pageName = pageResult.title;
-          });
+
+        if (result.pageId) {
+          this._pageService
+            .get(result.pageId)
+            .subscribe((pageResult: PageDto) => {
+              this.pageName = pageResult.title;
+            });
+        }
       });
     }
   }

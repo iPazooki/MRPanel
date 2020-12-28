@@ -27,11 +27,11 @@ dotnet publish --output (Join-Path $outputFolder "host")
 Set-Location $ngFolder
 & yarn
 & ng build --prod
-Copy-Item (Join-Path $ngFolder "dist") (Join-Path $outputFolder "ng") -Recurse
-Copy-Item (Join-Path $ngFolder "Dockerfile") (Join-Path $outputFolder "ng")
+Copy-Item (Join-Path $ngFolder "dist") (Join-Path $outputFolder "ng-admin") -Recurse
+Copy-Item (Join-Path $ngFolder "Dockerfile") (Join-Path $outputFolder "ng-admin")
 
 # Change UI configuration
-$ngConfigPath = Join-Path $outputFolder "ng/assets/appconfig.json"
+$ngConfigPath = Join-Path $outputFolder "ng-admin/assets/appconfig.json"
 (Get-Content $ngConfigPath) -replace "21021", "9901" | Set-Content $ngConfigPath
 (Get-Content $ngConfigPath) -replace "4200", "9902" | Set-Content $ngConfigPath
 
@@ -39,11 +39,18 @@ $ngConfigPath = Join-Path $outputFolder "ng/assets/appconfig.json"
 
 Set-Location $ngSiteFolder
 Write-Output $ngSiteFolder
+
+# Change Site UI configuration
+$ngSiteConfigPath = Join-Path $ngSiteFolder "src/shared/appConsts.ts"
+(Get-Content $ngSiteConfigPath) -replace "21021", "9901" | Set-Content $ngSiteConfigPath
+
 & yarn
 & ng build --prod
 Copy-Item (Join-Path $ngSiteFolder "dist") (Join-Path $outputFolder "ng-site") -Recurse
 Copy-Item (Join-Path $ngSiteFolder "Dockerfile") (Join-Path $outputFolder "ng-site")
 
+$ngSiteConfigPath = Join-Path $ngSiteFolder "src/shared/appConsts.ts"
+(Get-Content $ngSiteConfigPath) -replace "9901", "21021" | Set-Content $ngSiteConfigPath
 ## CREATE DOCKER IMAGES #######################################################
 
 # Host
@@ -56,7 +63,7 @@ docker build -t mrpanel_host .
 Set-Location (Join-Path $outputFolder "ng-admin")
 
 docker rmi mrpanel_ng -f
-docker build -t mrpanel_ng .
+docker build -t mrpanel_ng_admin .
 
 # Angular Site UI
 Set-Location (Join-Path $outputFolder "ng-site")
@@ -66,9 +73,7 @@ docker build -t mrpanel_ng_site .
 
 ## DOCKER COMPOSE FILES #######################################################
 
-Copy-Item (Join-Path $slnFolder "docker/ng-admin/*.*") $outputFolder
-
-Copy-Item (Join-Path $slnFolder "docker/ng-site/*.*") $outputFolder
+Copy-Item (Join-Path $slnFolder "docker/ng/*.*") $outputFolder
 
 ## FINALIZE ###################################################################
 

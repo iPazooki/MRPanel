@@ -12,6 +12,26 @@
             </div>
         </div>
         <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="description">
+                {{ "Description" | localize }}
+            </label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" name="description" id="description" minlength="3" maxlength="50"
+                    [(ngModel)]="menu.description" #descriptionModel="ngModel" #descriptionEl />
+                <abp-validation-summary [control]="descriptionModel" [controlEl]="descriptionEl"></abp-validation-summary>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="icon">
+                {{ "Icon" | localize }}
+            </label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" name="icon" id="icon" minlength="3" maxlength="25"
+                    [(ngModel)]="menu.icon" #iconModel="ngModel" #iconEl />
+                <abp-validation-summary [control]="iconModel" [controlEl]="iconEl"></abp-validation-summary>
+            </div>
+        </div>
+        <div class="form-group row">
             <label class="col-md-3 col-form-label">
                 {{ "IsExternal" | localize }}
             </label>
