@@ -1,6 +1,6 @@
 {
-  "remoteServiceBaseUrl": "http://localhost:9901",
-  "appBaseUrl": "http://localhost:9902",
+  "remoteServiceBaseUrl": "http://mrpanel-lb-145608741.eu-west-2.elb.amazonaws.com:9901",
+  "appBaseUrl": "http://mrpanel-lb-145608741.eu-west-2.elb.amazonaws.com:9902",
   "localeMappings": [
     {
       "from": "fa-IR",

@@ -6,6 +6,7 @@ services:
         image: mrpanel_host
         environment:
             - ASPNETCORE_ENVIRONMENT=Staging
+            - ConnectionStrings__Default=Server=mrpaneldb.cwhmthlrutxc.eu-west-2.rds.amazonaws.com,1433; Database=MRPanel; User=admin; Password=yourStrong(!)Password;MultipleActiveResultSets=true;
         ports:
             - "9901:80"
         volumes:

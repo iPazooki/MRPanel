@@ -30,11 +30,6 @@ Set-Location $ngFolder
 Copy-Item (Join-Path $ngFolder "dist") (Join-Path $outputFolder "ng-admin") -Recurse
 Copy-Item (Join-Path $ngFolder "Dockerfile") (Join-Path $outputFolder "ng-admin")
 
-# Change UI configuration
-$ngConfigPath = Join-Path $outputFolder "ng-admin/assets/appconfig.json"
-(Get-Content $ngConfigPath) -replace "21021", "9901" | Set-Content $ngConfigPath
-(Get-Content $ngConfigPath) -replace "4200", "9902" | Set-Content $ngConfigPath
-
 ## PUBLISH ANGULAR SITE UI PROJECT #################################################
 
 Set-Location $ngSiteFolder
@@ -42,7 +37,7 @@ Write-Output $ngSiteFolder
 
 # Change Site UI configuration
 $ngSiteConfigPath = Join-Path $ngSiteFolder "src/shared/appConsts.ts"
-(Get-Content $ngSiteConfigPath) -replace "21021", "9901" | Set-Content $ngSiteConfigPath
+(Get-Content $ngSiteConfigPath) -replace "http://localhost:21021", "http://mrpanel-lb-145608741.eu-west-2.elb.amazonaws.com:9901" | Set-Content $ngSiteConfigPath
 
 & yarn
 & ng build --prod
@@ -50,26 +45,26 @@ Copy-Item (Join-Path $ngSiteFolder "dist") (Join-Path $outputFolder "ng-site") -
 Copy-Item (Join-Path $ngSiteFolder "Dockerfile") (Join-Path $outputFolder "ng-site")
 
 $ngSiteConfigPath = Join-Path $ngSiteFolder "src/shared/appConsts.ts"
-(Get-Content $ngSiteConfigPath) -replace "9901", "21021" | Set-Content $ngSiteConfigPath
+(Get-Content $ngSiteConfigPath) -replace "http://mrpanel-lb-145608741.eu-west-2.elb.amazonaws.com:9901", "http://localhost:21021" | Set-Content $ngSiteConfigPath
 ## CREATE DOCKER IMAGES #######################################################
 
 # Host
 Set-Location (Join-Path $outputFolder "host")
 
-docker rmi mrpanel_host -f
-docker build -t mrpanel_host .
+docker rmi pazooki/mrpanel_host -f
+docker build -t pazooki/mrpanel_host:1.4 .
 
 # Angular Admin UI
 Set-Location (Join-Path $outputFolder "ng-admin")
 
-docker rmi mrpanel_ng -f
-docker build -t mrpanel_ng_admin .
+docker rmi pazooki/mrpanel_ng_admin -f
+docker build -t pazooki/mrpanel_ng_admin:1.4 .
 
 # Angular Site UI
 Set-Location (Join-Path $outputFolder "ng-site")
 
-docker rmi mrpanel_ng_site -f
-docker build -t mrpanel_ng_site .
+docker rmi pazooki/mrpanel_ng_site -f
+docker build -t pazooki/mrpanel_ng_site:1.4 .
 
 ## DOCKER COMPOSE FILES #######################################################
 
